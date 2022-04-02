@@ -1,19 +1,23 @@
 package com.springboot.ConsentManagement.ConsentService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.ConsentManagement.ConsentDao.ConsentDao;
+import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
+import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
 import com.springboot.ConsentManagement.Entities.EHealthRecord;
+import com.springboot.ConsentManagement.Entities.Patient;
 
 @Service
 public class RecordServiceImp implements RecordService{
 	
 	@Autowired
-	private ConsentDao DaoHander;
+	private RecordRepository EHRecordHander;
+	
+	@Autowired
+	private PatientRepository PatientHandler;
 //	List<EHealthRecord> Records;
 	public RecordServiceImp() {
 //		Records = new ArrayList<EHealthRecord>();
@@ -24,13 +28,9 @@ public class RecordServiceImp implements RecordService{
 	}
 
 	@Override
-	public List<EHealthRecord> getRecords() {
-		return this.DaoHander.findAll();
-	}
-
-	@Override
-	public EHealthRecord addRecord(EHealthRecord rec) {
-		return this.DaoHander.save(rec);
+	public List<EHealthRecord> getPatientRecords(String metaId) {
+		Patient pat = this.PatientHandler.findByMetaId(metaId);
+		return this.EHRecordHander.findByPatientNameAndPatientPhone(pat.getName(), pat.getPhone());
 	}
 
 }

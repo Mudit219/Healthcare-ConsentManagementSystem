@@ -9,5 +9,4 @@ public class ConsentManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ConsentManagementApplication.class, args);
 	}
-
 }

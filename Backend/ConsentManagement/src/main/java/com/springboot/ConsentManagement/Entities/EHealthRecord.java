@@ -10,83 +10,119 @@ import javax.persistence.Table;
 public class EHealthRecord {
 	
 	@Id
-	private long EhrId;
+	private long ehrId;
+	
+	@Column(name="PatientName",nullable = false)
+	private String patientName;
 	
 	@Column(name="DoctorName",nullable = false)
-	private String DoctorName;
-	
-	@Column(name="Diagonsis",nullable = false)
-	private String Diagnosis;
+	private String doctorName;
 	
 	@Column(name="HospitalName",nullable = false)
-	private String HospitalName;
+	private String hospitalName;
 	
-	@Column(name="Date")
-	private String Date;
+	@Column(name="PatientPhone",nullable = false)
+	private long patientPhone;
 	
-	@Column(name="ConsentExpiry")
-	private String ConsentExpiry;
+	@Column(name="Diagnosis",nullable = false)
+	private String diagnosis;
 	
-	@Column(name="RecordLink")
-	private String RecordLink;
+//	@Column(name="Date")
+//	private String date;
 	
+	@Column(name="Prescription")
+	private String prescription;
+	
+//	@Column(name="RecordLink")
+//	private String recordLink;
+//	
 	public EHealthRecord() {
 		super();
 	}
-	
-	public EHealthRecord(long ehrId, String doctorName, String diagnosis, String hospitalName, String date,
-			String consentExpiry, String recordLink) {
-		super();
-		EhrId = ehrId;
-		DoctorName = doctorName;
-		Diagnosis = diagnosis;
-		HospitalName = hospitalName;
-		Date = date;
-		ConsentExpiry = consentExpiry;
-		RecordLink = recordLink;
-	}
-	
-	
+
 	public long getEhrId() {
-		return EhrId;
+		return ehrId;
 	}
-	public void setEhrId(int ehrId) {
-		EhrId = ehrId;
+
+	public void setEhrId(long ehrId) {
+		this.ehrId = ehrId;
 	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+	
+	public long getPaitentPhone() {
+		return patientPhone;
+	}
+
+	public void setPaitentPhone(long patientPhone) {
+		this.patientPhone = patientPhone;
+	}
+
 	public String getDoctorName() {
-		return DoctorName;
+		return doctorName;
 	}
+
 	public void setDoctorName(String doctorName) {
-		DoctorName = doctorName;
+		this.doctorName = doctorName;
 	}
+
 	public String getDiagnosis() {
-		return Diagnosis;
+		return diagnosis;
 	}
+
 	public void setDiagnosis(String diagnosis) {
-		Diagnosis = diagnosis;
+		this.diagnosis = diagnosis;
 	}
-	public String getHospitalName() {
-		return HospitalName;
+
+	public String gethospitalName() {
+		return hospitalName;
 	}
-	public void setHospitalName(String hospitalName) {
-		HospitalName = hospitalName;
+
+	public void sethospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
 	}
-	public String getDate() {
-		return Date;
+
+//	public String getDate() {
+//		return date;
+//	}
+//
+//	public void setDate(String date) {
+//		this.date = date;
+//	}
+
+	public String getprescription() {
+		return prescription;
 	}
-	public void setDate(String date) {
-		Date = date;
+
+	public void setprescription(String prescription) {
+		this.prescription = prescription;
 	}
-	public String getConsentExpiry() {
-		return ConsentExpiry;
+
+//	public String getRecordLink() {
+//		return recordLink;
+//	}
+
+//	public void setRecordLink(String recordLink) {
+//		this.recordLink = recordLink;
+//	}
+
+	public EHealthRecord(long ehrId, String patientName, long patientPhone, String doctorName, String diagnosis, String hospitalName, String prescription) {
+		super();
+		this.ehrId = ehrId;
+		this.patientName = patientName;
+		this.patientPhone = patientPhone;
+		this.doctorName = doctorName;
+		this.diagnosis = diagnosis;
+		this.hospitalName = hospitalName;
+//		this.date = date;
+		this.prescription = prescription;
+//		this.recordLink = recordLink;
 	}
-	public void setConsentExpiry(String consentExpiry) {
-		ConsentExpiry = consentExpiry;
-	}
-	public String getRecordLink() {
-		return RecordLink;
-	}
-	public void setRecordLink(String recordLink) {
-		RecordLink = recordLink;
-	}
+	
 }
