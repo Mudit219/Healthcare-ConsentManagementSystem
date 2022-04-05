@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.ConsentManagement.ConsentService.RecordService;
+import com.springboot.ConsentManagement.ConsentService.PatientService;
 import com.springboot.ConsentManagement.Entities.EHealthRecord;
 import com.springboot.ConsentManagement.Entities.Patient;
 
@@ -19,10 +19,16 @@ import com.springboot.ConsentManagement.Entities.Patient;
 public class RecordController {
 	
 	@Autowired
-	private RecordService ServiceHandler;
+	private PatientService ServiceHandler;
 	
 	@GetMapping(path="/Pat_{metaId}/E-Health-Records")
 	public List<EHealthRecord> getPatientRecords(@PathVariable("metaId") String metaId){
 		return this.ServiceHandler.getPatientRecords(metaId);
+	}
+	
+	@GetMapping(path="/Pat_{metaId}/Profile")
+	public Patient getProfile(@PathVariable("metaId") String metaId) {
+		return this.ServiceHandler.getProfile(metaId);
+		
 	}
 }

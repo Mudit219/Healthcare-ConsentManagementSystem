@@ -11,7 +11,7 @@ import com.springboot.ConsentManagement.Entities.EHealthRecord;
 import com.springboot.ConsentManagement.Entities.Patient;
 
 @Service
-public class RecordServiceImp implements RecordService{
+public class PatientServiceImp implements PatientService{
 	
 	@Autowired
 	private RecordRepository EHRecordHander;
@@ -19,18 +19,18 @@ public class RecordServiceImp implements RecordService{
 	@Autowired
 	private PatientRepository PatientHandler;
 //	List<EHealthRecord> Records;
-	public RecordServiceImp() {
-//		Records = new ArrayList<EHealthRecord>();
-//		this.Records.add(new EHealthRecord(1, "Ramesh", "Headache", "Nimhans", "", "", ""));
-//		this.Records.add(new EHealthRecord(2, "Ramesh", "Cold", "Nimhans", "", "", ""));
-//		this.Records.add(new EHealthRecord(3, "Ramesh", "Ankle Injury", "Nimhans", "", "", ""));
-//		this.Records.add(new EHealthRecord(4, "Ramesh", "Allergy", "Nimhans", "", "", ""));
+	public PatientServiceImp() {
 	}
 
 	@Override
 	public List<EHealthRecord> getPatientRecords(String metaId) {
 		Patient pat = this.PatientHandler.findByMetaId(metaId);
 		return this.EHRecordHander.findByPatientNameAndPatientPhone(pat.getName(), pat.getPhone());
+	}
+
+	@Override
+	public Patient getProfile(String metaId) {
+		return this.PatientHandler.findByMetaId(metaId);
 	}
 
 }
