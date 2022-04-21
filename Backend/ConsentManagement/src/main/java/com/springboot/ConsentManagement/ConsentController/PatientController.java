@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.ConsentManagement.ConsentService.PatientService;
+import com.springboot.ConsentManagement.Entities.ConnectedDoctor;
+import com.springboot.ConsentManagement.Entities.ConnectedPatient;
 import com.springboot.ConsentManagement.Entities.EHealthRecord;
 import com.springboot.ConsentManagement.Entities.Patient;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class RecordController {
+public class PatientController {
 	
 	@Autowired
 	private PatientService ServiceHandler;
@@ -30,5 +32,26 @@ public class RecordController {
 	public Patient getProfile(@PathVariable("metaId") String metaId) {
 		return this.ServiceHandler.getProfile(metaId);
 		
+	}
+	
+	@GetMapping(path="/Pat_{metaId}/Consents")
+	public List<String> getDoctorNames(@PathVariable("metaId") String metaId, @RequestBody List<String> consentedDoctorIds) {
+		return this.ServiceHandler.getDoctorNames(consentedDoctorIds);
+		
+	}
+	
+	@PostMapping(path="/AddPat_")
+	public Patient addPatient(@RequestBody Patient patient) {
+		return this.ServiceHandler.addPatient(patient);
+	}
+	
+	@GetMapping(path="/Pat_{metaId}/Valid")
+	public Boolean isPatientValid(@PathVariable("metaId") String metaId) {
+		return this.ServiceHandler.isPatientValid(metaId);
+	}
+	
+	@GetMapping(path="/Pat_{metaId}/Get-Connections")
+	public List<ConnectedDoctor> getConnections(@PathVariable("metaId") String metaId) {
+		return this.ServiceHandler.getConnections(metaId);	
 	}
 }
