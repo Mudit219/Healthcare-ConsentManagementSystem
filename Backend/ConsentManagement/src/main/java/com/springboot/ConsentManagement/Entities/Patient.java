@@ -13,7 +13,7 @@ public class Patient {
 	private String name;
 	
 	@Column(name="PhoneNumber",nullable = false)
-	private long phone;
+	private String phone;
 	
 	@Id
 	private String metaId;
@@ -24,17 +24,22 @@ public class Patient {
 	@Column(name="Gender")
 	private Character gender;
 	
+	@Column(name="PatientImage")
+	private String patientImage;
+	
+	
 	public Patient() {
 		super();
 	}
 	
-	public Patient(String name, long phone, String metaId, String email, Character gender) {
+	public Patient(String name,String patientImage, String phone, String metaId, String email, Character gender) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.metaId = metaId;
 		this.email = email;
 		this.gender = gender;
+		this.patientImage = patientImage;
 	}
 	
 	public String getName() {
@@ -43,10 +48,19 @@ public class Patient {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getPhone() {
+	
+	public String getPatientImage() {
+		return patientImage;
+	}
+	
+	public void setPatientImage(String patientImage) {
+		this.patientImage = patientImage;
+	}
+	
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getMetaId() {

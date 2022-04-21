@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `doctor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `doctor` (
-  `meta_id` int NOT NULL,
+  `meta_id` varchar(200) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `doctor_name` varchar(100) DEFAULT NULL,
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patient` (
-  `meta_id` int NOT NULL,
+  `meta_id` varchar(200) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `patient_name` varchar(100) DEFAULT NULL,

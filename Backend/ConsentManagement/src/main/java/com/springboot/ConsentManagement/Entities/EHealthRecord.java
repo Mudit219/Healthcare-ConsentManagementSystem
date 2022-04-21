@@ -5,12 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
+
+
 @Entity
 @Table(name="EHealthRecords")
 public class EHealthRecord {
 	
 	@Id
-	private long ehrId;
+	private String ehrId;
 	
 	@Column(name="PatientName",nullable = false)
 	private String patientName;
@@ -22,16 +27,22 @@ public class EHealthRecord {
 	private String hospitalName;
 	
 	@Column(name="PatientPhone",nullable = false)
-	private long patientPhone;
+	private String patientPhone;
 	
 	@Column(name="Diagnosis",nullable = false)
 	private String diagnosis;
 	
-//	@Column(name="Date")
-//	private String date;
 	
+	@Column(name="Date")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private LocalDate date;
+		
 	@Column(name="Prescription")
 	private String prescription;
+	
+	@Column(name="DoctorLicense")
+	private String doctorLicense;
+	
 	
 //	@Column(name="RecordLink")
 //	private String recordLink;
@@ -40,11 +51,11 @@ public class EHealthRecord {
 		super();
 	}
 
-	public long getEhrId() {
+	public String getEhrId() {
 		return ehrId;
 	}
 
-	public void setEhrId(long ehrId) {
+	public void setEhrId(String ehrId) {
 		this.ehrId = ehrId;
 	}
 
@@ -56,11 +67,11 @@ public class EHealthRecord {
 		this.patientName = patientName;
 	}
 	
-	public long getPaitentPhone() {
+	public String getPatientPhone() {
 		return patientPhone;
 	}
 
-	public void setPaitentPhone(long patientPhone) {
+	public void setPatientPhone(String patientPhone) {
 		this.patientPhone = patientPhone;
 	}
 
@@ -88,22 +99,31 @@ public class EHealthRecord {
 		this.hospitalName = hospitalName;
 	}
 
-//	public String getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(String date) {
-//		this.date = date;
-//	}
+	public LocalDate getDate() {
+		return date;
+	}
 
-	public String getprescription() {
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public String getPrescription() {
 		return prescription;
 	}
 
-	public void setprescription(String prescription) {
+	public void setPrescription(String prescription) {
 		this.prescription = prescription;
 	}
+	
+	public String getDoctorLicense() {
+		return doctorLicense;
+	}
 
+	public void setDoctorLicense(String doctorLicense) {
+		this.doctorLicense = doctorLicense;
+	}
+	
+		
 //	public String getRecordLink() {
 //		return recordLink;
 //	}
@@ -112,7 +132,7 @@ public class EHealthRecord {
 //		this.recordLink = recordLink;
 //	}
 
-	public EHealthRecord(long ehrId, String patientName, long patientPhone, String doctorName, String diagnosis, String hospitalName, String prescription) {
+	public EHealthRecord(String ehrId, String doctorLicense,LocalDate date,String patientName, String patientPhone, String doctorName, String diagnosis, String hospitalName, String prescription) {
 		super();
 		this.ehrId = ehrId;
 		this.patientName = patientName;
@@ -120,8 +140,9 @@ public class EHealthRecord {
 		this.doctorName = doctorName;
 		this.diagnosis = diagnosis;
 		this.hospitalName = hospitalName;
-//		this.date = date;
+		this.date = date;
 		this.prescription = prescription;
+		this.doctorLicense = doctorLicense;
 //		this.recordLink = recordLink;
 	}
 	
