@@ -2,8 +2,12 @@ package com.springboot.ConsentManagement.ConsentService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 //import javafx.util.Pair;
 
+import com.springboot.ConsentManagement.Entities.*;
+import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
+import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -11,11 +15,6 @@ import org.springframework.stereotype.Service;
 import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
 import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
 import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
-import com.springboot.ConsentManagement.Entities.ConnectedPatient;
-import com.springboot.ConsentManagement.Entities.ConsentedRecords;
-import com.springboot.ConsentManagement.Entities.Doctor;
-import com.springboot.ConsentManagement.Entities.EHealthRecord;
-import com.springboot.ConsentManagement.Entities.Patient;
 
 @Service
 public class DoctorService {
@@ -28,6 +27,9 @@ public class DoctorService {
 	
 	@Autowired
 	private DoctorRepository DoctorHandler;
+
+	@Autowired
+	AssignUserAuthorities assignUserAuthorities;
 	
 	List<EHealthRecord> GrantedRecords = new ArrayList<EHealthRecord>();
 
@@ -77,6 +79,11 @@ public class DoctorService {
 	}
 	
 	public Doctor addDoctor(Doctor doctor) {
+//		System.out.println(ConsentUserRole.DOCTOR.getGrantedAuthorities().size());
+//		ConsentUserRole.DOCTOR.getGrantedAuthorities().forEach(authority -> System.out.println(authority.getAuthority()));
+//		AssignUserAuthorities assignUserAuthorities = new AssignUserAuthorities(ConsentUserRole.DOCTOR);
+//		Set<Authority> authorities = assignUserAuthorities.getGrantedAuthorities();
+		doctor.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
 		return this.DoctorHandler.save(doctor);
 	}
 
@@ -92,9 +99,28 @@ public class DoctorService {
 		}
 		return connections;
 	}
-	
 
-	
-	
-	
+
+	public void updateAuthorities(String metaId, Set<Authority> authorities) {
+		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
+		Set<Authority> docAuthorities = doc.getAuthorities();
+		if(docAuthorities==null){
+			doc.setAuthorities(authorities);
+			this.DoctorHandler.save(doc);
+		}
+		else{
+//			authorities.stream().map(auth -> docAuthorities.add(auth));
+			for(Authority auth: authorities){
+				docAuthorities.add(auth);
+			}
+			System.out.println(docAuthorities);
+			doc.setAuthorities(docAuthorities);
+			this.DoctorHandler.save(doc);
+		}
+	}
+
+	public Set<Authority> getAuthorities(String metaId) {
+		return (this.DoctorHandler.findByMetaId(metaId)).getAuthorities();
+
+	}
 }

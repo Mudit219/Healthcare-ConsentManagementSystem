@@ -3,6 +3,7 @@ package com.springboot.ConsentManagement.ConsentController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,36 +23,37 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService ServiceHandler;
-	
-	@GetMapping(path="/Pat_{metaId}/E-Health-Records")
+
+	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_PATIENT')")
+	@GetMapping(path="/Pat/{metaId}/E-Health-Records")
 	public List<EHealthRecord> getPatientRecords(@PathVariable("metaId") String metaId){
 		return this.ServiceHandler.getPatientRecords(metaId);
 	}
-	
-	@GetMapping(path="/Pat_{metaId}/Profile")
-	public Patient getProfile(@PathVariable("metaId") String metaId) {
-		return this.ServiceHandler.getProfile(metaId);
-		
-	}
-	
-	@GetMapping(path="/Pat_{metaId}/Consents")
+
+	@GetMapping(path="/Pat/{metaId}/Consents")
 	public List<String> getDoctorNames(@PathVariable("metaId") String metaId, @RequestBody List<String> consentedDoctorIds) {
 		return this.ServiceHandler.getDoctorNames(consentedDoctorIds);
-		
+
 	}
-	
+
 	@PostMapping(path="/AddPat_")
 	public Patient addPatient(@RequestBody Patient patient) {
 		return this.ServiceHandler.addPatient(patient);
 	}
-	
-	@GetMapping(path="/Pat_{metaId}/Valid")
+
+	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_PATIENT')")
+	@GetMapping(path="/Pat/{metaId}/Profile")
+	public Patient getProfile(@PathVariable("metaId") String metaId) {
+		return this.ServiceHandler.getProfile(metaId);
+	}
+
+	@GetMapping(path="/Pat/{metaId}/Valid")
 	public Boolean isPatientValid(@PathVariable("metaId") String metaId) {
 		return this.ServiceHandler.isPatientValid(metaId);
 	}
-	
-	@GetMapping(path="/Pat_{metaId}/Get-Connections")
+
+	@GetMapping(path="/Pat/{metaId}/Get-Connections")
 	public List<ConnectedDoctor> getConnections(@PathVariable("metaId") String metaId) {
-		return this.ServiceHandler.getConnections(metaId);	
+		return this.ServiceHandler.getConnections(metaId);
 	}
 }
