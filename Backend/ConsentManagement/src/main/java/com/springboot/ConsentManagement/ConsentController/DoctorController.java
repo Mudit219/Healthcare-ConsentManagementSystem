@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.ConsentManagement.ConsentService.DoctorService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class DoctorController {
 	
 	@Autowired
@@ -31,34 +31,15 @@ public class DoctorController {
 		return this.DoctorServiceHandler.accessRecords(metaId, consentRecords);
 	}
 
-	@GetMapping(path="/Doc/{metaId}/Valid")
-	public Boolean isDoctorValid(@PathVariable("metaId") String metaId) {
-		return this.DoctorServiceHandler.isDoctorValid(metaId);
-	}
-	
 	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_DOCTOR')")
 	@GetMapping(path="/Doc/{metaId}/Profile")
 	public Doctor getProfile(@PathVariable("metaId") String metaId) {
 		return this.DoctorServiceHandler.getProfile(metaId);	
 	}
-	
-	@PostMapping(path="/AddDoc")
-	public Doctor addDoctor(@RequestBody Doctor doctor) {
-		return this.DoctorServiceHandler.addDoctor(doctor);
-	}
-	
+
 	@GetMapping(path="/Doc/{metaId}/Get-Connections")
 	public List<ConnectedPatient> getConnections(@PathVariable("metaId") String metaId) {
 		return this.DoctorServiceHandler.getConnections(metaId);	
 	}
 
-	@PostMapping(path="/Doc/{metaId}/Update-Authorities")
-	public void updateAuthorities(@PathVariable("metaId") String metaId, @RequestBody Set<Authority> authorities){
-		this.DoctorServiceHandler.updateAuthorities(metaId,authorities);
-	}
-
-	@GetMapping(path="/Doc/{metaId}/Get-Authorities")
-	public Set<Authority> getAuthorities(@PathVariable("metaId") String metaId){
-		return this.DoctorServiceHandler.getAuthorities(metaId);
-	}
 }

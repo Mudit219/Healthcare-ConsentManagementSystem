@@ -10,6 +10,7 @@ import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
 import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
@@ -68,24 +69,20 @@ public class DoctorService {
 		}
 	}
 	
-	public Boolean isDoctorValid(String metaId) {
-		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
-		if(doc==null) return false;
-		else return true;
-	}
+//	public Boolean isDoctorValid(String metaId){
+//		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
+//		if(doc==null) return false;
+//		else return true;
+//	}
 	
 	public Doctor getProfile(String metaId) {
 		return this.DoctorHandler.findByMetaId(metaId);
 	}
 	
-	public Doctor addDoctor(Doctor doctor) {
-//		System.out.println(ConsentUserRole.DOCTOR.getGrantedAuthorities().size());
-//		ConsentUserRole.DOCTOR.getGrantedAuthorities().forEach(authority -> System.out.println(authority.getAuthority()));
-//		AssignUserAuthorities assignUserAuthorities = new AssignUserAuthorities(ConsentUserRole.DOCTOR);
-//		Set<Authority> authorities = assignUserAuthorities.getGrantedAuthorities();
-		doctor.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
-		return this.DoctorHandler.save(doctor);
-	}
+//	public Doctor addDoctor(Doctor doctor) {
+//		doctor.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
+//		return this.DoctorHandler.save(doctor);
+//	}
 
 	public List<ConnectedPatient> getConnections(String metaId) {
 		GrantedRecords.clear();
@@ -101,26 +98,25 @@ public class DoctorService {
 	}
 
 
-	public void updateAuthorities(String metaId, Set<Authority> authorities) {
-		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
-		Set<Authority> docAuthorities = doc.getAuthorities();
-		if(docAuthorities==null){
-			doc.setAuthorities(authorities);
-			this.DoctorHandler.save(doc);
-		}
-		else{
-//			authorities.stream().map(auth -> docAuthorities.add(auth));
-			for(Authority auth: authorities){
-				docAuthorities.add(auth);
-			}
-			System.out.println(docAuthorities);
-			doc.setAuthorities(docAuthorities);
-			this.DoctorHandler.save(doc);
-		}
-	}
-
-	public Set<Authority> getAuthorities(String metaId) {
-		return (this.DoctorHandler.findByMetaId(metaId)).getAuthorities();
-
-	}
+//	public void updateAuthorities(String metaId, Set<Authority> authorities) {
+//		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
+//		Set<Authority> docAuthorities = doc.getAuthorities();
+//		if(docAuthorities==null){
+//			doc.setAuthorities(authorities);
+//			this.DoctorHandler.save(doc);
+//		}
+//		else{
+////			authorities.stream().map(auth -> docAuthorities.add(auth));
+//			for(Authority auth: authorities){
+//				docAuthorities.add(auth);
+//			}
+//			System.out.println(docAuthorities);
+//			doc.setAuthorities(docAuthorities);
+//			this.DoctorHandler.save(doc);
+//		}
+//	}
+//
+//	public Set<Authority> getAuthorities(String metaId) {
+//		return (this.DoctorHandler.findByMetaId(metaId)).getAuthorities();
+//	}
 }
