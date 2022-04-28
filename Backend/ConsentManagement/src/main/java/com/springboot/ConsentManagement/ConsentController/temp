@@ -1,0 +1,75 @@
+@Configuration
+@EnableWebSecurity
+
+public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+
+    private final PasswordEncoder passwordEncoder;
+
+
+    public AppSecurityConfig(PasswordEncoder passwordEncoder) {
+
+    this.passwordEncoder = passwordEncoder;
+
+   }
+
+
+
+
+    @Override
+
+   protected void configure(HttpSecurity http) throws Exception {
+
+    /*
+    Stateless session enables authentication for every request. This would help ease the demonstration
+    of this tutorial on Postman.
+    */
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http
+
+            .csrf().disable()
+            .authorizeRequests()
+           .antMatchers(HttpMethod.DELETE, "/api/v1/products/{productId}").hasRole(ADMIN.name()) // Admin should be able to delete
+           .antMatchers(HttpMethod.PUT, "/api/v1/products/{productId}").hasRole(ADMIN.name()) // Admin should be able to update
+            .antMatchers("/api/v1/products/add").hasAnyRole(ADMIN.name(), SUPERVISOR.name()) // Admin and Supervisor should be able to add product.
+            .antMatchers("/api/v1/products").hasAnyRole(ADMIN.name(), SUPERVISOR.name(), INTERN.name()) // All three users should be able to get all products.
+            .antMatchers("/api/v1/products{productId}").hasAnyRole(ADMIN.name(), SUPERVISOR.name(), INTERN.name()) // All three users should be able to get a product by id.
+            .anyRequest()
+            .authenticated()
+            .and()
+            .httpBasic();
+
+}
+
+    // Setting up the details of the application users with their respective usernames, roles and passwords.
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService() {
+    UserDetails timmy = User.builder()
+                            .username("timmy")
+                            .password(passwordEncoder.encode("password"))
+                            .roles(INTERN.name())
+                            .build();
+
+    UserDetails john = User.builder()
+                            .username("john")
+                            .password(passwordEncoder.encode("password"))
+                            .roles(SUPERVISOR.name())
+                            .build();
+
+    UserDetails sarah = User.builder()
+                            .username("sarah")
+                            .password(passwordEncoder.encode("password"))
+                            .roles(ADMIN.name())
+                            .build();
+
+    InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager(timmy, john, sarah);
+
+        return userDetailsManager;
+
+    }
+
+
+}

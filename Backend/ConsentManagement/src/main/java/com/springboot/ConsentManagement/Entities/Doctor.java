@@ -1,9 +1,9 @@
 package com.springboot.ConsentManagement.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="Doctor")
@@ -32,14 +32,28 @@ public class Doctor {
 	
 	@Column(name="DoctorImage")
 	private String doctorImage;
-	
+
+	@Column(name="Password")
+	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Authority> authorities;
+
 	public Doctor() {
 		super();
 	}
 
-	public Doctor(String name, String phone, String metaId, String email, Character gender, String specialization,
-			String doctorLicense, String doctorImage) {
-		super();
+	public Doctor(String name,
+				  String phone,
+				  String metaId,
+				  String email,
+				  Character gender,
+				  String specialization,
+				  String doctorLicense,
+				  String doctorImage,
+				  String password,
+				  Set<Authority> authorities
+	) {
 		this.name = name;
 		this.phone = phone;
 		this.metaId = metaId;
@@ -48,6 +62,24 @@ public class Doctor {
 		this.specialization = specialization;
 		this.doctorLicense = doctorLicense;
 		this.doctorImage = doctorImage;
+		this.password = password;
+		this.authorities = authorities;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 	public String getName() {

@@ -1,9 +1,7 @@
 package com.springboot.ConsentManagement.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="Patient")
@@ -26,22 +24,51 @@ public class Patient {
 	
 	@Column(name="PatientImage")
 	private String patientImage;
-	
-	
+
+	@Column(name="Password")
+	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Authority> authorities;
+
 	public Patient() {
 		super();
 	}
-	
-	public Patient(String name,String patientImage, String phone, String metaId, String email, Character gender) {
-		super();
+
+	public Patient(String name,
+				   String phone,
+				   String metaId,
+				   String email,
+				   Character gender,
+				   String patientImage,
+				   String password,
+				   Set<Authority> authorities) {
 		this.name = name;
 		this.phone = phone;
 		this.metaId = metaId;
 		this.email = email;
 		this.gender = gender;
 		this.patientImage = patientImage;
+		this.password = password;
+		this.authorities = authorities;
 	}
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
 	public String getName() {
 		return name;
 	}

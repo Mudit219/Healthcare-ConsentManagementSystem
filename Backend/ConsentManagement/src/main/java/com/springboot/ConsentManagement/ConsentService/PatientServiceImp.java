@@ -2,17 +2,17 @@ package com.springboot.ConsentManagement.ConsentService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import com.springboot.ConsentManagement.Entities.*;
+import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
+import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
 import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
 import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
-import com.springboot.ConsentManagement.Entities.ConnectedDoctor;
-import com.springboot.ConsentManagement.Entities.ConnectedPatient;
-import com.springboot.ConsentManagement.Entities.EHealthRecord;
-import com.springboot.ConsentManagement.Entities.Patient;
 
 @Service
 public class PatientServiceImp implements PatientService{
@@ -26,6 +26,9 @@ public class PatientServiceImp implements PatientService{
 	
 	@Autowired
 	private DoctorRepository DoctorHandler;
+
+	@Autowired
+	AssignUserAuthorities assignUserAuthorities;
 	
 	public PatientServiceImp() {
 	}
@@ -49,17 +52,18 @@ public class PatientServiceImp implements PatientService{
 		return consentedDoctorNames;
 	}
 
-	@Override
-	public Patient addPatient(Patient patient) {
-		return this.PatientHandler.save(patient);
-	}
+//	@Override
+//	public Patient addPatient(Patient patient) {
+//		patient.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.PATIENT));
+//		return this.PatientHandler.save(patient);
+//	}
 
-	@Override
-	public Boolean isPatientValid(String metaId) {
-		Patient pat = this.PatientHandler.findByMetaId(metaId);
-		if(pat==null) return false;
-		else return true;
-	}
+//	@Override
+//	public Boolean isPatientValid(String metaId) {
+//		Patient pat = this.PatientHandler.findByMetaId(metaId);
+//		if(pat==null) return false;
+//		else return true;
+//	}
 
 	@Override
 	public String getPatientId(String name, String phone) {
@@ -79,5 +83,27 @@ public class PatientServiceImp implements PatientService{
 		}
 		return connections;
 	}
+
+//	public void updateAuthorities(String metaId, Set<Authority> authorities) {
+//		Patient pat = this.PatientHandler.findByMetaId(metaId);
+//		Set<Authority> patAuthorities = pat.getAuthorities();
+//		if(patAuthorities==null){
+//			pat.setAuthorities(authorities);
+//			this.PatientHandler.save(pat);
+//		}
+//		else{
+////			authorities.stream().map(auth -> docAuthorities.add(auth));
+//			for(Authority auth: authorities){
+//				patAuthorities.add(auth);
+//			}
+//			System.out.println(patAuthorities);
+//			pat.setAuthorities(patAuthorities);
+//			this.PatientHandler.save(pat);
+//		}
+//	}
+//
+//	public Set<Authority> getAuthorities(String metaId) {
+//		return (this.PatientHandler.findByMetaId(metaId)).getAuthorities();
+//	}
 
 }

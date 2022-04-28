@@ -1,0 +1,1 @@
+insert into ConsentManagement.authorities(authority) values ("ROLE_DOCTOR"),("ROLE_PATIENT"),("profile_patient:read"),("profile_patient:write"),("profile_doctor:read"),("profile_doctor:write"),("records_doctor:read"),("records_patient:read");
