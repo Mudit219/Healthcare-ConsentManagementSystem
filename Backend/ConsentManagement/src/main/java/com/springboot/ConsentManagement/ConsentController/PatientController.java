@@ -40,9 +40,9 @@ public class PatientController {
 		return this.PatientServiceHandler.getProfile(metaId);
 	}
 
-	@GetMapping(path="/Pat/{metaId}/Get-Connections")
-	public List<ConnectedDoctor> getConnections(@PathVariable("metaId") String metaId) {
-		return this.PatientServiceHandler.getConnections(metaId);
-	}
+//	@GetMapping(path="/Pat/{metaId}/Get-Connections")
+//	public List<ConnectedDoctor> getConnections(@PathVariable("metaId") String metaId) {
+//		return this.PatientServiceHandler.getConnections(metaId);
+//	}
 
 }

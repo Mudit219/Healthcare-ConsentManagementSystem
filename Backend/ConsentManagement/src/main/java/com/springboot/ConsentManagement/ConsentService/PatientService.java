@@ -10,5 +10,6 @@ public interface PatientService {
 	public Patient getProfile(String metaId);
 	public List<String> getDoctorNames(List<String> doctorIds);
 	public String getPatientId(String name,String phone);
-	public List<ConnectedDoctor> getConnections(String metaId);
+//	public List<ConnectedDoctor> getConnections(String metaId);
 }
+
