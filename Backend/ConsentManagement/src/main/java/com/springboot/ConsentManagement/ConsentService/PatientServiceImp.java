@@ -52,58 +52,23 @@ public class PatientServiceImp implements PatientService{
 		return consentedDoctorNames;
 	}
 
-//	@Override
-//	public Patient addPatient(Patient patient) {
-//		patient.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.PATIENT));
-//		return this.PatientHandler.save(patient);
-//	}
-
-//	@Override
-//	public Boolean isPatientValid(String metaId) {
-//		Patient pat = this.PatientHandler.findByMetaId(metaId);
-//		if(pat==null) return false;
-//		else return true;
-//	}
-
 	@Override
 	public String getPatientId(String name, String phone) {
 		return (this.PatientHandler.findByNameAndPhone(name,phone)).getMetaId();
 	}
 
-	@Override
-	public List<ConnectedDoctor> getConnections(String metaId) {
-		List<EHealthRecord> patientRecords = new ArrayList<EHealthRecord>();
-		patientRecords = this.getPatientRecords(metaId);
-		List<ConnectedDoctor> connections = new ArrayList<ConnectedDoctor>();
-		for(EHealthRecord e: patientRecords) {
-			if(this.DoctorHandler.findByNameAndDoctorLicense(e.getDoctorName(), e.getDoctorLicense())!=null){
-				ConnectedDoctor con = new ConnectedDoctor(e.getDoctorName(),e.getDoctorLicense(),(this.DoctorHandler.findByNameAndDoctorLicense(e.getDoctorName(), e.getDoctorLicense())).getMetaId());
-				connections.add(con);
-			}
-		}
-		return connections;
-	}
-
-//	public void updateAuthorities(String metaId, Set<Authority> authorities) {
-//		Patient pat = this.PatientHandler.findByMetaId(metaId);
-//		Set<Authority> patAuthorities = pat.getAuthorities();
-//		if(patAuthorities==null){
-//			pat.setAuthorities(authorities);
-//			this.PatientHandler.save(pat);
-//		}
-//		else{
-////			authorities.stream().map(auth -> docAuthorities.add(auth));
-//			for(Authority auth: authorities){
-//				patAuthorities.add(auth);
+//	@Override
+//	public List<ConnectedDoctor> getConnections(String metaId) {
+//		List<EHealthRecord> patientRecords = new ArrayList<EHealthRecord>();
+//		patientRecords = this.getPatientRecords(metaId);
+//		List<ConnectedDoctor> connections = new ArrayList<ConnectedDoctor>();
+//		for(EHealthRecord e: patientRecords) {
+//			if(this.DoctorHandler.findByNameAndDoctorLicense(e.getDoctorName(), e.getDoctorLicense())!=null){
+//				ConnectedDoctor con = new ConnectedDoctor(e.getDoctorName(),e.getDoctorLicense(),(this.DoctorHandler.findByNameAndDoctorLicense(e.getDoctorName(), e.getDoctorLicense())).getMetaId());
+//				connections.add(con);
 //			}
-//			System.out.println(patAuthorities);
-//			pat.setAuthorities(patAuthorities);
-//			this.PatientHandler.save(pat);
 //		}
-//	}
-//
-//	public Set<Authority> getAuthorities(String metaId) {
-//		return (this.PatientHandler.findByMetaId(metaId)).getAuthorities();
+//		return connections;
 //	}
 
 }

@@ -1,13 +1,12 @@
 package com.springboot.ConsentManagement.ConsentController;
 
 import com.springboot.ConsentManagement.ConsentService.AdminService;
-import com.springboot.ConsentManagement.Entities.Authority;
-import com.springboot.ConsentManagement.Entities.Doctor;
-import com.springboot.ConsentManagement.Entities.Patient;
+import com.springboot.ConsentManagement.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @CrossOrigin("http://localhost:3000")
@@ -45,7 +44,7 @@ public class AdminController {
         this.AdminServiceHandler.updateAuthorities(metaId,authorities,role);
     }
 
-//    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasPermission(#metaId,'profile:read')")
     @GetMapping(path="/admin/Get-Authorities/{role}/{metaId}")
     public Set<Authority> getAuthorities(@PathVariable("metaId") String metaId,
                                          @PathVariable("role") String role){
@@ -53,4 +52,8 @@ public class AdminController {
         return this.AdminServiceHandler.getAuthorities(metaId,role);
     }
 
+    @GetMapping(path="/admin/Get-AvailableDoctors")
+    public Set<AvailableDoctors> getConnections() {
+        return this.AdminServiceHandler.getAvailableDoctors();
+    }
 }

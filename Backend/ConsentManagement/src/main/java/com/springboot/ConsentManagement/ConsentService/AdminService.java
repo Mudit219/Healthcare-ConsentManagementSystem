@@ -3,15 +3,17 @@ package com.springboot.ConsentManagement.ConsentService;
 import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
 import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
 import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
-import com.springboot.ConsentManagement.Entities.Authority;
-import com.springboot.ConsentManagement.Entities.Doctor;
-import com.springboot.ConsentManagement.Entities.Patient;
+import com.springboot.ConsentManagement.Entities.*;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
 import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
@@ -39,6 +41,7 @@ public class AdminService {
 
     public Doctor addDoctor(Doctor doc) {
         doc.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
+        doc.setSpecialization("General");
         return this.DoctorHandler.save(doc);
     }
 
@@ -86,6 +89,23 @@ public class AdminService {
         if(role.equals("Doc"))
             return (this.DoctorHandler.findByMetaId(metaId)).getAuthorities();
         return (this.PatientHandler.findByMetaId(metaId)).getAuthorities();
+    }
+
+    public Set<AvailableDoctors> getAvailableDoctors(){
+        List<EHealthRecord> records = this.RecordHandler.findAll();
+        Set<AvailableDoctors> availableDoctors = new HashSet<>();
+        Doctor doc;
+        for(int i=0;i<records.size();i++){
+            doc = this.DoctorHandler.findByNameAndDoctorLicense(
+                    records.get(i).getDoctorName(),
+                    records.get(i).getDoctorLicense());
+            if(doc!=null) {
+                availableDoctors.add(new AvailableDoctors(records.get(i).gethospitalName(),
+                        records.get(i).getDoctorName(),
+                        doc.getSpecialization(), doc.getMetaId()));
+            }
+        }
+        return availableDoctors.stream().distinct().collect(Collectors.toSet());
     }
 
 }
