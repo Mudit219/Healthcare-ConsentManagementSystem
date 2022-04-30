@@ -27,11 +27,12 @@ public class DoctorController {
 	
 	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_DOCTOR')")
 	@PostMapping("/Doc/{metaId}/E-Health-Records")
-	public List<EHealthRecord> accessRecords(@PathVariable("metaId") String metaId, @RequestBody List<ConsentedRecords> consentRecords ){
+	public List<EHealthRecord> accessRecords(@PathVariable("metaId") String metaId,
+											 @RequestBody List<ConsentedRecords> consentRecords ){
 		return this.DoctorServiceHandler.accessRecords(metaId, consentRecords);
 	}
 
-	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_DOCTOR')")
+	@PreAuthorize("(#metaId == authentication.name and hasRole('ROLE_DOCTOR')) or (hasPermission(#metaId,'profile_doctor:write'))")
 	@GetMapping(path="/Doc/{metaId}/Profile")
 	public Doctor getProfile(@PathVariable("metaId") String metaId) {
 		return this.DoctorServiceHandler.getProfile(metaId);	

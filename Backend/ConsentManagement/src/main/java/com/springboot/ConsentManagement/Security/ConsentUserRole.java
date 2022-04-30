@@ -21,7 +21,7 @@ import static com.springboot.ConsentManagement.Security.ConsentUserPermission.*;
 
 // Defining different user roles. For each user Role there will some set of permissions/authorities.
 public enum ConsentUserRole {
-	PATIENT(Sets.newHashSet(PROFILE_PATIENT_READ,PROFILE_PATIENT_WRITE,RECORDS_PATIENT_READ)),
+	PATIENT(Sets.newHashSet(PROFILE_PATIENT_READ,PROFILE_PATIENT_WRITE,RECORDS_PATIENT_READ,PROFILE_DOCTOR_READ)),
 
 	DOCTOR(Sets.newHashSet(PROFILE_DOCTOR_READ,PROFILE_DOCTOR_WRITE,RECORDS_DOCTOR_READ));
 	

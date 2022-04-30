@@ -16,7 +16,14 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         System.out.println(auth.getName());
         System.out.println(targetDomainObject.toString());
         System.out.println(permission.toString());
-        return true;
+        System.out.println(auth.getAuthorities().contains(permission.toString()));
+        if(permission.equals("profile_doctor:read")) {
+            if (auth.getAuthorities().contains(permission.toString()) && (auth.getName() == targetDomainObject.toString()))
+                return true;
+        }
+        if(permission.equals("authorities:read"))
+            return true;
+        return false;
     }
 
     @Override

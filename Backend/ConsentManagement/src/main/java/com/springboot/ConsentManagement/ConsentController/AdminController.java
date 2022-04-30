@@ -44,7 +44,7 @@ public class AdminController {
         this.AdminServiceHandler.updateAuthorities(metaId,authorities,role);
     }
 
-    @PreAuthorize("hasPermission(#metaId,'profile:read')")
+    @PreAuthorize("hasPermission(#metaId,'authorities:read')")
     @GetMapping(path="/admin/Get-Authorities/{role}/{metaId}")
     public Set<Authority> getAuthorities(@PathVariable("metaId") String metaId,
                                          @PathVariable("role") String role){
@@ -53,7 +53,7 @@ public class AdminController {
     }
 
     @GetMapping(path="/admin/Get-AvailableDoctors")
-    public Set<AvailableDoctors> getConnections() {
+    public Set<AvailableDoctors> getAvailableDoctors() {
         return this.AdminServiceHandler.getAvailableDoctors();
     }
 }

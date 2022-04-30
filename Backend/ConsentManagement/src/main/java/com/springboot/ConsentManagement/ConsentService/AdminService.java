@@ -50,6 +50,7 @@ public class AdminService {
         return this.PatientHandler.save(patient);
     }
 
+
     public void updateAuthorities(String metaId, Set<Authority> authorities,String role) {
         if(role.equals("Doc")) {
             Doctor doc = this.DoctorHandler.findByMetaId(metaId);

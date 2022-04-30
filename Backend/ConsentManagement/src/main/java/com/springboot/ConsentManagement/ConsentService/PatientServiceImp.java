@@ -58,7 +58,7 @@ public class PatientServiceImp implements PatientService{
 	}
 
 //	@Override
-//	public List<ConnectedDoctor> getConnections(String metaId) {
+//	public List<ConnectedDoctor> getConnections(String metaId,List<String> doctorIds) {
 //		List<EHealthRecord> patientRecords = new ArrayList<EHealthRecord>();
 //		patientRecords = this.getPatientRecords(metaId);
 //		List<ConnectedDoctor> connections = new ArrayList<ConnectedDoctor>();
