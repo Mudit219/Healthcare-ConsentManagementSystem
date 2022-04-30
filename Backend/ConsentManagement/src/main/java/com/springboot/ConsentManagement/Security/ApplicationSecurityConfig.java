@@ -60,6 +60,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 			.addFilter(customJWTFilter) // Adding JWT filter so that every time user login he gets a new token.
 				.addFilterAfter(customTokenFilter,JWTUsernameAndPasswordAuthenticationFilter.class) // Adding Token verifier, this will be called once after user is authorized and asking some request.
 			.authorizeRequests()
+				.antMatchers("/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/swagger-ui.html", "/webjars/**").permitAll()
+				.antMatchers("/contract/**").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/admin/Valid/Doc/**").permitAll()
 				.antMatchers("/admin/Valid/Pat/**").permitAll()

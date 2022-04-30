@@ -3,10 +3,12 @@ package com.springboot.ConsentManagement.ConsentService;
 import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
 import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
 import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
+import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
 import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
+
+    @Autowired
+    @Qualifier("contractServiceConfiguration")
+    ContractService contractService;
     @Autowired
     AssignUserAuthorities assignUserAuthorities;
     @Autowired
@@ -40,12 +46,14 @@ public class AdminService {
     }
 
     public Doctor addDoctor(Doctor doc) {
+        contractService.AddNewUserToContract(doc.getMetaId(),"doctor");
         doc.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
         doc.setSpecialization("General");
         return this.DoctorHandler.save(doc);
     }
 
     public Patient addPatient(Patient patient) {
+        contractService.AddNewUserToContract(patient.getMetaId(),"patient");
         patient.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.PATIENT));
         return this.PatientHandler.save(patient);
     }
