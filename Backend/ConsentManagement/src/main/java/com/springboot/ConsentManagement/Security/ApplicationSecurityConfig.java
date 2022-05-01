@@ -72,6 +72,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/admin/Get-Authorities/Doc/**").permitAll()
 				.antMatchers("/admin/Get-Authorities/Pat/**").permitAll()
 				.antMatchers("/admin/Get-AvailableDoctors").permitAll()
+				.antMatchers("/Doc/**/Profile-public").permitAll()
+				.antMatchers("/Pat/**/Profile-public").permitAll()
 				.anyRequest()
 			.authenticated(); // For any request made by user, he/she has to be authenticated.
 	}

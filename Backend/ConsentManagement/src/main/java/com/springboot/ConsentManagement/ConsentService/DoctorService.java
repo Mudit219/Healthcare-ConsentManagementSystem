@@ -17,6 +17,8 @@ import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
 import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
 import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
 
+import javax.print.Doc;
+
 @Service
 public class DoctorService {
 	
@@ -77,6 +79,18 @@ public class DoctorService {
 	
 	public Doctor getProfile(String metaId) {
 		return this.DoctorHandler.findByMetaId(metaId);
+	}
+
+	public DoctorPublicProfile getPublicProfile(String metaId){
+		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
+		DoctorPublicProfile profile = new DoctorPublicProfile(doc.getName(),
+				doc.getSpecialization(),
+				doc.getMetaId(),
+				doc.getPhone(),
+				doc.getEmail(),
+				doc.getDoctorImage()
+		);
+		return profile;
 	}
 	
 //	public Doctor addDoctor(Doctor doctor) {

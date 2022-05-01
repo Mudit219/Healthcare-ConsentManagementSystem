@@ -57,6 +57,13 @@ public class PatientServiceImp implements PatientService{
 		return (this.PatientHandler.findByNameAndPhone(name,phone)).getMetaId();
 	}
 
+	@Override
+	public PatientPublicProfile getPublicProfile(String metaId) {
+		Patient pat = this.PatientHandler.findByMetaId(metaId);
+		PatientPublicProfile profile = new PatientPublicProfile(pat.getName(),pat.getMetaId(),pat.getPatientImage());
+		return profile;
+	}
+
 //	@Override
 //	public List<ConnectedDoctor> getConnections(String metaId,List<String> doctorIds) {
 //		List<EHealthRecord> patientRecords = new ArrayList<EHealthRecord>();

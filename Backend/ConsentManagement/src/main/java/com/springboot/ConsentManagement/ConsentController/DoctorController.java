@@ -32,10 +32,15 @@ public class DoctorController {
 		return this.DoctorServiceHandler.accessRecords(metaId, consentRecords);
 	}
 
-	@PreAuthorize("(#metaId == authentication.name and hasRole('ROLE_DOCTOR')) or (hasPermission(#metaId,'profile_doctor:write'))")
+	@PreAuthorize("(#metaId == authentication.name and hasRole('ROLE_DOCTOR'))")
 	@GetMapping(path="/Doc/{metaId}/Profile")
 	public Doctor getProfile(@PathVariable("metaId") String metaId) {
 		return this.DoctorServiceHandler.getProfile(metaId);	
+	}
+
+	@GetMapping(path="/Doc/{metaId}/Profile-public")
+	public DoctorPublicProfile getPublicProfile(@PathVariable("metaId") String metaId) {
+		return this.DoctorServiceHandler.getPublicProfile(metaId);
 	}
 
 	@GetMapping(path="/Doc/{metaId}/Get-Connections")

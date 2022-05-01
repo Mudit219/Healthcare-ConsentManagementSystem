@@ -89,12 +89,15 @@ public class ContractService {
 
     
     public void AddNewUserToContract(String _user,String role) {
-		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr, web3j, credentials, GAS_PRICE, GAS_LIMIT);
+		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr,
+				web3j, credentials, GAS_PRICE, BigInteger.valueOf(4372188));
+
 		try {
 			TransactionReceipt tr = contract.AddNewUser(_user,role).send();
-			LOGGER.info("Transaction receipt: from={}, to={}, gas={}", tr.getFrom(), tr.getTo(), tr.getGasUsed().intValue());
-			LOGGER.info("Get receiver: {}", contract.DoctorExists().send());
-			EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST, contract.getContractAddress());
+			LOGGER.info("Transaction receipt: from={}, to={}, gas={}",
+					tr.getFrom(), tr.getTo(), tr.getGasUsed().intValue());
+			EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST,
+					DefaultBlockParameterName.LATEST, contract.getContractAddress());
 			web3j.ethLogFlowable(filter).subscribe(log -> {
 				LOGGER.info("Log: {}", log.getData());
 			});
@@ -107,7 +110,8 @@ public class ContractService {
 		System.out.print(contractAddr);
 		System.out.print(_user);
 
-		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr, web3j, credentials, GAS_PRICE, BigInteger.valueOf(4372188));
+		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr,
+				web3j, credentials, GAS_PRICE, BigInteger.valueOf(4372188));
 		try {
 			List ReqConnections = contract.GetReqestedConnections(_user).send();
 			LOGGER.info("List: ",ReqConnections);
@@ -144,7 +148,8 @@ public class ContractService {
 	public Boolean CheckValidRecords(String doctor, String[] records) {
 		System.out.print(contractAddr);
 
-		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr, web3j, credentials, GAS_PRICE, BigInteger.valueOf(4372188));
+		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr,
+				web3j, credentials, GAS_PRICE, BigInteger.valueOf(4372188));
 		try {
 			Boolean ret = contract.ValidateRecordRequest(doctor, List.of(records)).send();
 			LOGGER.info("Ret value: ",ret);
