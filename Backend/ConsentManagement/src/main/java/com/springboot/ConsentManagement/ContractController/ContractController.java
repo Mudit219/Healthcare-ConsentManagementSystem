@@ -48,8 +48,12 @@ public class ContractController {
     }
 
     @PostMapping("/CheckValidRecords")
-    public Boolean RequestedConnections(String _doctor,String[] records) throws Exception {
+    public Boolean RequestedConnections(String _doctor,List<String> records) throws Exception {
         return service.CheckValidRecords(_doctor,records);
     }
-    
+
+//    @GetMapping("/Notifications")
+//    public void Notifications(String _user) throws Exception{
+//        service.GetNotifications(_user);
+//    }
 }

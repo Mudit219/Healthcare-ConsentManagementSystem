@@ -145,13 +145,13 @@ public class ContractService {
 		return null;
 	}
 
-	public Boolean CheckValidRecords(String doctor, String[] records) {
+	public Boolean CheckValidRecords(String doctor, List<String> records) {
 		System.out.print(contractAddr);
 
 		ConsentManagementSystem contract = ConsentManagementSystem.load(contractAddr,
 				web3j, credentials, GAS_PRICE, BigInteger.valueOf(4372188));
 		try {
-			Boolean ret = contract.ValidateRecordRequest(doctor, List.of(records)).send();
+			Boolean ret = contract.ValidateRecordRequest(doctor, records).send();
 			LOGGER.info("Ret value: ",ret);
 			return ret;
 		}

@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Set;
 //import javafx.util.Pair;
 
+import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
 import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.util.Pair;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,10 @@ public class DoctorService {
 	
 	@Autowired
 	private PatientRepository PatientHandler;
-	
+
+	@Autowired
+	@Qualifier("contractServiceConfiguration")
+	ContractService contractService;
 	@Autowired
 	private RecordRepository RecordHandler;
 	
@@ -45,14 +50,17 @@ public class DoctorService {
 	}
 	
 	public void accessGrantedRecords(String DoctorId,List<ConsentedRecords> RecordIds){
-		
+
 		Patient pat = null;
 		for(int i=0;i<RecordIds.size();i++) {
 			pat = this.PatientHandler.findByMetaId(RecordIds.get(i).getPatientId());
-			for(int j=0;j<RecordIds.get(i).getRecordIds().size();j++) {			
-				this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndPatientPhoneAndEhrId(pat.getName(),pat.getPhone(),RecordIds.get(i).getRecordIds().get(j)));
+			if(contractService.CheckValidRecords(DoctorId,RecordIds.get(i).getRecordIds()) == Boolean.TRUE) {
+				for (int j = 0; j < RecordIds.get(i).getRecordIds().size(); j++) {
+					this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndPatientPhoneAndEhrId(pat.getName(), pat.getPhone(), RecordIds.get(i).getRecordIds().get(j)));
+				}
 			}
 		}
+
 //		System.out.println(RecordIds.size());
 //		for(int i=2;i<RecordIds.size();i++) {
 ////			pat = this.PatientHandler.findByMetaId(RecordIds.get(i).getPatientId());
