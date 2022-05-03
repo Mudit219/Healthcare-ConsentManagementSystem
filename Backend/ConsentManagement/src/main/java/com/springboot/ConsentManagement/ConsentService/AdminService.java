@@ -45,14 +45,19 @@ public class AdminService {
         else return true;
     }
 
-    public Doctor addDoctor(Doctor doc) {
+    public Doctor addDoctor(Doctor doc) throws IllegalAccessException{
+        if(this.DoctorHandler.findByDoctorLicense(doc.getDoctorLicense()) != null)
+            throw new IllegalAccessException("This doctor already exists");
         contractService.AddNewUserToContract(doc.getMetaId(),"doctor");
         doc.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
         doc.setSpecialization("General");
         return this.DoctorHandler.save(doc);
     }
 
-    public Patient addPatient(Patient patient) {
+    public Patient addPatient(Patient patient) throws IllegalAccessException{
+        if(this.PatientHandler.findByNameAndPhone(patient.getName(),patient.getPhone()) != null)
+            throw new IllegalAccessException("This patient already exists");
+
         contractService.AddNewUserToContract(patient.getMetaId(),"patient");
         patient.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.PATIENT));
         return this.PatientHandler.save(patient);

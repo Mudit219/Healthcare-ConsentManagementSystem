@@ -15,5 +15,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, String>{
 
 	public Set<Authority> findByAuthorities(String doctorId);
 
+	public Doctor findByDoctorLicense(String license);
+
 //	public Object findByNameAndPhone(String patientName, String patientPhone);
 }

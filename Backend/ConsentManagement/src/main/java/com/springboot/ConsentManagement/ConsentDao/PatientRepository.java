@@ -10,5 +10,7 @@ import java.util.Set;
 public interface PatientRepository extends JpaRepository<Patient, String>{
 	public Patient findByMetaId(String metaId);
 	public Patient findByNameAndPhone(String name,String phone);
+
+	public Patient findByPhone(String phone);
 	public Set<Authority> findByAuthorities(String patientId);
 }

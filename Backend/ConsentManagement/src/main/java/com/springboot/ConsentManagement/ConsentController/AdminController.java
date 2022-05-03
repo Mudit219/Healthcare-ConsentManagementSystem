@@ -27,12 +27,12 @@ public class AdminController {
     }
 
     @PostMapping(path="/admin/AddDoc")
-    public Doctor addDoctor(@RequestBody Doctor doctor) {
+    public Doctor addDoctor(@RequestBody Doctor doctor) throws IllegalAccessException {
         return this.AdminServiceHandler.addDoctor(doctor);
     }
 
     @PostMapping(path="/admin/AddPat")
-    public Patient addPatient(@RequestBody Patient patient) {
+    public Patient addPatient(@RequestBody Patient patient) throws IllegalAccessException {
         return this.AdminServiceHandler.addPatient(patient);
     }
 
