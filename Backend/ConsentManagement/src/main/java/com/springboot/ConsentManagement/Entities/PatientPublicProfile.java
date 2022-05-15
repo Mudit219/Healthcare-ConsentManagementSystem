@@ -6,10 +6,21 @@ public class PatientPublicProfile {
 
     private String img;
 
-    public PatientPublicProfile(String name, String metaId,String img) {
+    private String abhaId;
+
+    public PatientPublicProfile(String name, String metaId,String img,String abhaId) {
         this.name = name;
         this.metaId = metaId;
         this.img = img;
+        this.abhaId = abhaId;
+    }
+
+    public String getAbhaId() {
+        return abhaId;
+    }
+
+    public void setAbhaId(String abhaId) {
+        this.abhaId = abhaId;
     }
 
     public String getImg() {

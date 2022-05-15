@@ -3,6 +3,7 @@ package com.springboot.ConsentManagement.ConsentService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 //import javafx.util.Pair;
 
 import com.springboot.ConsentManagement.ContractService.ContractService;
@@ -36,9 +37,7 @@ public class DoctorService {
 	@Autowired
 	private DoctorRepository DoctorHandler;
 
-	@Autowired
-	AssignUserAuthorities assignUserAuthorities;
-	
+
 	List<EHealthRecord> GrantedRecords = new ArrayList<EHealthRecord>();
 
 	
@@ -49,26 +48,19 @@ public class DoctorService {
 		return GrantedRecords;
 	}
 	
-	public void accessGrantedRecords(String DoctorId,List<ConsentedRecords> RecordIds){
+	public void accessGrantedRecords(String DoctorId,List<ConsentedRecords> ConsentedRecords) {
 
 		Patient pat = null;
-		for(int i=0;i<RecordIds.size();i++) {
-			pat = this.PatientHandler.findByMetaId(RecordIds.get(i).getPatientId());
-			if(contractService.CheckValidRecords(DoctorId,RecordIds.get(i).getRecordIds()) == Boolean.TRUE) {
-				for (int j = 0; j < RecordIds.get(i).getRecordIds().size(); j++) {
-					this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndPatientPhoneAndEhrId(pat.getName(), pat.getPhone(), RecordIds.get(i).getRecordIds().get(j)));
+		for (int i = 0; i < ConsentedRecords.size(); i++) {
+			pat = this.PatientHandler.findByMetaId(ConsentedRecords.get(i).getPatientId());
+			if (contractService.CheckValidRecords(DoctorId, ConsentedRecords.get(i).getRecordIds()) == Boolean.TRUE) {
+				for (int j = 0; j < ConsentedRecords.get(i).getRecordIds().size(); j++) {
+					this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(), ConsentedRecords.get(i).getRecordIds().get(j)));
 				}
 			}
 		}
-
-//		System.out.println(RecordIds.size());
-//		for(int i=2;i<RecordIds.size();i++) {
-////			pat = this.PatientHandler.findByMetaId(RecordIds.get(i).getPatientId());
-//			System.out.println(RecordIds.get(i).getRecordIds().size());
-//			break;
-//		}
 	}
-	
+
 	public void accessOwnRecords(String DoctorId){
 		
 		Doctor doc = this.DoctorHandler.findByMetaId(DoctorId);
@@ -79,32 +71,34 @@ public class DoctorService {
 		}
 	}
 	
-//	public Boolean isDoctorValid(String metaId){
-//		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
-//		if(doc==null) return false;
-//		else return true;
-//	}
-	
 	public Doctor getProfile(String metaId) {
 		return this.DoctorHandler.findByMetaId(metaId);
 	}
 
 	public DoctorPublicProfile getPublicProfile(String metaId){
 		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
-		DoctorPublicProfile profile = new DoctorPublicProfile(doc.getName(),
-				doc.getSpecialization(),
-				doc.getMetaId(),
-				doc.getPhone(),
-				doc.getEmail(),
-				doc.getDoctorImage()
-		);
-		return profile;
+		System.out.println(doc);
+		if(doc != null) {
+			DoctorPublicProfile profile = new DoctorPublicProfile(doc.getName(),
+					doc.getSpecialization(),
+					doc.getMetaId(),
+					doc.getPhone(),
+					doc.getEmail(),
+					doc.getDoctorImage()
+			);
+			return profile;
+		}
+		else {
+			return null;
+		}
+
 	}
-	
-//	public Doctor addDoctor(Doctor doctor) {
-//		doctor.setAuthorities(assignUserAuthorities.getGrantedAuthorities(ConsentUserRole.DOCTOR));
-//		return this.DoctorHandler.save(doctor);
-//	}
+
+	public List<DoctorPublicProfile> getRequestedPublicProfiles(List<String> doctorIds){
+		return doctorIds.stream().filter(id->getPublicProfile(id)!=null)
+				.map(id->getPublicProfile(id))
+				.collect(Collectors.toList());
+	}
 
 	public List<ConnectedPatient> getConnections(String metaId) {
 		GrantedRecords.clear();
@@ -119,26 +113,4 @@ public class DoctorService {
 		return connections;
 	}
 
-
-//	public void updateAuthorities(String metaId, Set<Authority> authorities) {
-//		Doctor doc = this.DoctorHandler.findByMetaId(metaId);
-//		Set<Authority> docAuthorities = doc.getAuthorities();
-//		if(docAuthorities==null){
-//			doc.setAuthorities(authorities);
-//			this.DoctorHandler.save(doc);
-//		}
-//		else{
-////			authorities.stream().map(auth -> docAuthorities.add(auth));
-//			for(Authority auth: authorities){
-//				docAuthorities.add(auth);
-//			}
-//			System.out.println(docAuthorities);
-//			doc.setAuthorities(docAuthorities);
-//			this.DoctorHandler.save(doc);
-//		}
-//	}
-//
-//	public Set<Authority> getAuthorities(String metaId) {
-//		return (this.DoctorHandler.findByMetaId(metaId)).getAuthorities();
-//	}
 }

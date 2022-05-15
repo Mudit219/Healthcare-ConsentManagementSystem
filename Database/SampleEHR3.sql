@@ -55,6 +55,7 @@ DROP TABLE IF EXISTS `patient`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patient` (
   `meta_id` varchar(100) NOT NULL,
+  `abha_id` varchar(14) NOT NULL,
   `password` varchar(500) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
@@ -71,7 +72,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (1234,"password",'mudit@gmail.com','Male','Mudit','8574932920','https://www.google.com/search?q=people+images&tbm=isch&ved=2ahUKEwi9yY3x3v32AhX9ZWwGHQ-FBlwQ2-cCegQIABAA&oq=people+images&gs_lcp=CgNpbWcQAzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BAgAEEM6BwgAELEDEEM6CwgAEIAEELEDEIMBUPoJWIYWYK8XaABwAHgAgAGkAYgBiA-SAQQwLjE0mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=yKNMYr3FI_3LseMPj4qa4AU&bih=656&biw=1396&hl=en#imgrc=9J4U3ls-3Zhn5M'),(3421,"password",'arpita@yahoo.com','Female','Arpitha','6429482291','https://www.google.com/search?q=people+images&tbm=isch&ved=2ahUKEwi9yY3x3v32AhX9ZWwGHQ-FBlwQ2-cCegQIABAA&oq=people+images&gs_lcp=CgNpbWcQAzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BAgAEEM6BwgAELEDEEM6CwgAEIAEELEDEIMBUPoJWIYWYK8XaABwAHgAgAGkAYgBiA-SAQQwLjE0mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=yKNMYr3FI_3LseMPj4qa4AU&bih=656&biw=1396&hl=en#imgrc=ZLmcHB3RUei1nM'),(5422,"password",'saxsy@gmail.com','Male','Saksham','9545323431',NULL),(8231,"password",'mrinal@yahoo.co.in','Male','Mrinal','8493238493','https://www.google.com/search?q=people+images&tbm=isch&ved=2ahUKEwi9yY3x3v32AhX9ZWwGHQ-FBlwQ2-cCegQIABAA&oq=people+images&gs_lcp=CgNpbWcQAzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BAgAEEM6BwgAELEDEEM6CwgAEIAEELEDEIMBUPoJWIYWYK8XaABwAHgAgAGkAYgBiA-SAQQwLjE0mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=yKNMYr3FI_3LseMPj4qa4AU&bih=656&biw=1396&hl=en#imgrc=W8x6GntEqn7x7M&imgdii=3wBoAhDKKpyMVM'),(8989,"password",'jan@gmail.com','Female','Janvi','7433232398',NULL);
+INSERT INTO `patient` VALUES (1234,"95692828872540","password",'mudit@gmail.com','Male','Mudit','8574932920','https://www.google.com/search?q=people+images&tbm=isch&ved=2ahUKEwi9yY3x3v32AhX9ZWwGHQ-FBlwQ2-cCegQIABAA&oq=people+images&gs_lcp=CgNpbWcQAzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BAgAEEM6BwgAELEDEEM6CwgAEIAEELEDEIMBUPoJWIYWYK8XaABwAHgAgAGkAYgBiA-SAQQwLjE0mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=yKNMYr3FI_3LseMPj4qa4AU&bih=656&biw=1396&hl=en#imgrc=9J4U3ls-3Zhn5M'),(3421,"85881127502281","password",'arpita@yahoo.com','Female','Arpitha','6429482291','https://www.google.com/search?q=people+images&tbm=isch&ved=2ahUKEwi9yY3x3v32AhX9ZWwGHQ-FBlwQ2-cCegQIABAA&oq=people+images&gs_lcp=CgNpbWcQAzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BAgAEEM6BwgAELEDEEM6CwgAEIAEELEDEIMBUPoJWIYWYK8XaABwAHgAgAGkAYgBiA-SAQQwLjE0mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=yKNMYr3FI_3LseMPj4qa4AU&bih=656&biw=1396&hl=en#imgrc=ZLmcHB3RUei1nM'),(5422,"70424638979356","password",'saxsy@gmail.com','Male','Saksham','9545323431',NULL),(8231,"46373210857984","password",'mrinal@yahoo.co.in','Male','Mrinal','8493238493','https://www.google.com/search?q=people+images&tbm=isch&ved=2ahUKEwi9yY3x3v32AhX9ZWwGHQ-FBlwQ2-cCegQIABAA&oq=people+images&gs_lcp=CgNpbWcQAzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BAgAEEM6BwgAELEDEEM6CwgAEIAEELEDEIMBUPoJWIYWYK8XaABwAHgAgAGkAYgBiA-SAQQwLjE0mAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=yKNMYr3FI_3LseMPj4qa4AU&bih=656&biw=1396&hl=en#imgrc=W8x6GntEqn7x7M&imgdii=3wBoAhDKKpyMVM'),(8989,"16484363371355","password",'jan@gmail.com','Female','Janvi','7433232398',NULL);
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,6 +85,7 @@ DROP TABLE IF EXISTS `ehealth_records`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ehealth_records` (
   `ehr_id` int NOT NULL,
+  `abha_id` varchar(14) NOT NULL,
   `hospital_name` varchar(100) NOT NULL,
   `patient_name` varchar(100) NOT NULL,
   `doctor_name` varchar(100) NOT NULL,
@@ -102,7 +104,27 @@ CREATE TABLE `ehealth_records` (
 
 LOCK TABLES `ehealth_records` WRITE;
 /*!40000 ALTER TABLE `ehealth_records` DISABLE KEYS */;
-INSERT INTO `ehealth_records` VALUES (1,'Narayana Hospital','Mudit','Arun','Nexium','Ulcer','8574932920','#DC2121','2021-11-02'),(2,'Kavery Hospital','Mrinal','Ramesh','Crestor','Cholestrol','8493238493','#DC1243','2021-10-12'),(3,'Sacred Oak Hospital','Saksham','Rajeev','Amoxicillin','Bacterial infection','9545323431','#DC2312','2021-01-24'),(4,'Sacred Oak Hospital','Aman','Rajeev','Lisinopril','High Blood pressure','9850384322','#DC2312','2020-11-02'),(5,'Fortis Hospital','Asilata','Lokesh','Nexium','Gastric Trouble','6837921994','#DC3321','2021-05-02'),(6,'Kavery Hospital','Tarun','Ramesh','Amoxicillin','Pneumonia','6568839021','#DC1243','2020-11-02'),(7,'Narayana Hospital','Nachiappan','Arun','Amoxicillin','Dental abscesses','9658492942','#DC2121','2021-10-02'),(8,'Fortis Hospital','Parithi','Lokesh','Crestor','Cholestrol','8839298432','#DC3321','2021-01-07'),(9,'Apollo Hospital','Vikram','Renjith','Dolo','Headache','7439292994','#DC7865','2021-11-21'),(10,'Narayana Hospital','Anvith','Bharathy','Dolo','Fever','8839923534','#DC3654','2021-12-22'),(11,'Fortis Hospital','Pankaj','Lokesh','Metformin','Diabetics','7388532932','#DC3321','2020-05-02'),(12,'Apollo Hospital','Omkar','Renjith','Robafen','Common Cold','6648292221','#DC7865','2021-06-02'),(13,'Sacred Oak Hospital','Saad','Rajeev','Dolo','Headache','8765938432','#DC2312','2020-06-08'),(14,'Kavery Hospital','Sriram','Ramesh','Robafen','Bronchitis','9992332999','#DC1243','2022-01-02'),(15,'Narayana Hospital','Khaveesh','Bharathy','Nexium','Heartburn','8989892893','#DC3654','2021-04-14'),(16,'Fortis Hospital','Shashank','Rahul','Nexium','Ulcer','9888777721','#DC6521','2020-11-19'),(17,'Fortis Hospital','Sama','Rahul','Metformin','Diabetics','7867846842','#DC6521','2021-12-22'),(18,'Kavery Hospital','Janvi','Ramesh','Dolo','Body Pain','7433232398','#DC1243','2020-09-07'),(19,'Apollo Hospital','Nikitha','Renjith','Nexium','Stomach Problem','7774396842','#DC7865','2021-09-09'),(20,'Apollo Hospital','Arpitha','Renjith','Dolo','Fever','6429482291','#DC7865','2022-03-28');
+INSERT INTO `ehealth_records` VALUES 
+(1,"95692828872540",'Narayana Hospital','Mudit','Arun','Nexium','Ulcer','8574932920','#DC2121','2021-11-02'),
+(2,"46373210857984",'Kavery Hospital','Mrinal','Ramesh','Crestor','Cholestrol','8493238493','#DC1243','2021-10-12'),
+(3,"70424638979356", 'Sacred Oak Hospital','Saksham','Rajeev','Amoxicillin','Bacterial infection','9545323431','#DC2312','2021-01-24'),
+(4,"34544539553925",'Sacred Oak Hospital','Aman','Rajeev','Lisinopril','High Blood pressure','9850384322','#DC2312','2020-11-02'),
+(5,"94289870106614",'Fortis Hospital','Asilata','Lokesh','Nexium','Gastric Trouble','6837921994','#DC3321','2021-05-02'),
+(6,"58418373541265",'Kavery Hospital','Tarun','Ramesh','Amoxicillin','Pneumonia','6568839021','#DC1243','2020-11-02'),
+(7,"97334391394307",'Narayana Hospital','Nachiappan','Arun','Amoxicillin','Dental abscesses','9658492942','#DC2121','2021-10-02'),
+(8,"26913528070948",'Fortis Hospital','Parithi','Lokesh','Crestor','Cholestrol','8839298432','#DC3321','2021-01-07'),
+(9,"81654523089241",'Apollo Hospital','Vikram','Renjith','Dolo','Headache','7439292994','#DC7865','2021-11-21'),
+(10,"19843773971314",'Narayana Hospital','Anvith','Bharathy','Dolo','Fever','8839923534','#DC3654','2021-12-22'),
+(11,"56738875428762",'Fortis Hospital','Pankaj','Lokesh','Metformin','Diabetics','7388532932','#DC3321','2020-05-02'),
+(12,"38487309770292",'Apollo Hospital','Omkar','Renjith','Robafen','Common Cold','6648292221','#DC7865','2021-06-02'),
+(13,"88358885884313",'Sacred Oak Hospital','Saad','Rajeev','Dolo','Headache','8765938432','#DC2312','2020-06-08'),
+(14,"33347349268558",'Kavery Hospital','Sriram','Ramesh','Robafen','Bronchitis','9992332999','#DC1243','2022-01-02'),
+(15,"96203302957892",'Narayana Hospital','Khaveesh','Bharathy','Nexium','Heartburn','8989892893','#DC3654','2021-04-14'),
+(16,"25590819179925",'Fortis Hospital','Shashank','Rahul','Nexium','Ulcer','9888777721','#DC6521','2020-11-19'),
+(17,"89046233438089",'Fortis Hospital','Sama','Rahul','Metformin','Diabetics','7867846842','#DC6521','2021-12-22'),
+(18,"28640987600095",'Kavery Hospital','Janvi','Ramesh','Dolo','Body Pain','7433232398','#DC1243','2020-09-07'),
+(19,"86813090719008",'Apollo Hospital','Nikitha','Renjith','Nexium','Stomach Problem','7774396842','#DC7865','2021-09-09'),
+(20,"69341423438255",'Apollo Hospital','Arpitha','Renjith','Dolo','Fever','6429482291','#DC7865','2022-03-28');
 /*!40000 ALTER TABLE `ehealth_records` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

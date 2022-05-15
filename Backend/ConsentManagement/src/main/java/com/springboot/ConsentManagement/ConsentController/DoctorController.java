@@ -43,6 +43,11 @@ public class DoctorController {
 		return this.DoctorServiceHandler.getPublicProfile(metaId);
 	}
 
+	@PostMapping(path="/Doc/Profile-public")
+	public List<DoctorPublicProfile> getRequestedPublicProfile(@RequestBody List<String> doctorIds) {
+		return this.DoctorServiceHandler.getRequestedPublicProfiles(doctorIds);
+	}
+
 	@GetMapping(path="/Doc/{metaId}/Get-Connections")
 	public List<ConnectedPatient> getConnections(@PathVariable("metaId") String metaId) {
 		return this.DoctorServiceHandler.getConnections(metaId);	

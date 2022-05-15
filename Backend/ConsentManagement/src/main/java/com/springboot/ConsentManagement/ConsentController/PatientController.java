@@ -34,6 +34,11 @@ public class PatientController {
 
 	}
 
+	@PostMapping(path="/Pat/Profile-public")
+	public List<PatientPublicProfile> getRequestedPublicProfile(@RequestBody List<String> patientIds) {
+		return this.PatientServiceHandler.getRequestedPublicProfiles(patientIds);
+	}
+
 	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_PATIENT')")
 	@GetMapping(path="/Pat/{metaId}/Profile")
 	public Patient getProfile(@PathVariable("metaId") String metaId) {

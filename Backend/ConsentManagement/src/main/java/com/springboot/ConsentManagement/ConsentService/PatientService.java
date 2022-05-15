@@ -12,6 +12,8 @@ public interface PatientService {
 	public String getPatientId(String name,String phone);
 
     PatientPublicProfile getPublicProfile(String metaId);
+
+	List<PatientPublicProfile> getRequestedPublicProfiles(List<String> doctorIds);
 //	public List<ConnectedDoctor> getConnections(String metaId);
 }
 

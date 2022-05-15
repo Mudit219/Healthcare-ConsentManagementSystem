@@ -16,6 +16,9 @@ public class EHealthRecord {
 	
 	@Id
 	private String ehrId;
+
+	@Column(name="AbhaId",nullable = false)
+	private String abhaId;
 	
 	@Column(name="PatientName",nullable = false)
 	private String patientName;
@@ -46,6 +49,8 @@ public class EHealthRecord {
 	
 //	@Column(name="RecordLink")
 //	private String recordLink;
+
+
 //	
 	public EHealthRecord() {
 		super();
@@ -91,11 +96,19 @@ public class EHealthRecord {
 		this.diagnosis = diagnosis;
 	}
 
-	public String gethospitalName() {
+	public String getAbhaId() {
+		return abhaId;
+	}
+
+	public void setAbhaId(String abhaId) {
+		this.abhaId = abhaId;
+	}
+
+	public String getHospitalName() {
 		return hospitalName;
 	}
 
-	public void sethospitalName(String hospitalName) {
+	public void setHospitalName(String hospitalName) {
 		this.hospitalName = hospitalName;
 	}
 
@@ -132,18 +145,26 @@ public class EHealthRecord {
 //		this.recordLink = recordLink;
 //	}
 
-	public EHealthRecord(String ehrId, String doctorLicense,LocalDate date,String patientName, String patientPhone, String doctorName, String diagnosis, String hospitalName, String prescription) {
-		super();
+
+	public EHealthRecord(String ehrId,
+						 String abhaId,
+						 String patientName,
+						 String doctorName,
+						 String hospitalName,
+						 String patientPhone,
+						 String diagnosis,
+						 LocalDate date,
+						 String prescription,
+						 String doctorLicense) {
 		this.ehrId = ehrId;
+		this.abhaId = abhaId;
 		this.patientName = patientName;
-		this.patientPhone = patientPhone;
 		this.doctorName = doctorName;
-		this.diagnosis = diagnosis;
 		this.hospitalName = hospitalName;
+		this.patientPhone = patientPhone;
+		this.diagnosis = diagnosis;
 		this.date = date;
 		this.prescription = prescription;
 		this.doctorLicense = doctorLicense;
-//		this.recordLink = recordLink;
 	}
-	
 }

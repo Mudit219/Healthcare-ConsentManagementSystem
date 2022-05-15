@@ -36,7 +36,7 @@ public class Doctor {
 	@Column(name="Password")
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private Set<Authority> authorities;
 
 	public Doctor() {

@@ -3,6 +3,7 @@ package com.springboot.ConsentManagement.ConsentService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.springboot.ConsentManagement.Entities.*;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
@@ -36,7 +37,8 @@ public class PatientServiceImp implements PatientService{
 	@Override
 	public List<EHealthRecord> getPatientRecords(String metaId) {
 		Patient pat = this.PatientHandler.findByMetaId(metaId);
-		return this.EHRecordHander.findByPatientNameAndPatientPhone(pat.getName(), pat.getPhone());
+//		return this.EHRecordHander.findByPatientNameAndPatientPhone(pat.getName(), pat.getPhone());
+		return this.EHRecordHander.findByAbhaId(pat.getAbhaId());
 	}
 
 	@Override
@@ -60,22 +62,19 @@ public class PatientServiceImp implements PatientService{
 	@Override
 	public PatientPublicProfile getPublicProfile(String metaId) {
 		Patient pat = this.PatientHandler.findByMetaId(metaId);
-		PatientPublicProfile profile = new PatientPublicProfile(pat.getName(),pat.getMetaId(),pat.getPatientImage());
-		return profile;
+		if(pat != null) {
+			PatientPublicProfile profile = new PatientPublicProfile(pat.getName(),
+					pat.getMetaId(),pat.getPatientImage(),pat.getAbhaId());
+			return profile;
+		}
+		else {
+			return null;
+		}
+
 	}
 
-//	@Override
-//	public List<ConnectedDoctor> getConnections(String metaId,List<String> doctorIds) {
-//		List<EHealthRecord> patientRecords = new ArrayList<EHealthRecord>();
-//		patientRecords = this.getPatientRecords(metaId);
-//		List<ConnectedDoctor> connections = new ArrayList<ConnectedDoctor>();
-//		for(EHealthRecord e: patientRecords) {
-//			if(this.DoctorHandler.findByNameAndDoctorLicense(e.getDoctorName(), e.getDoctorLicense())!=null){
-//				ConnectedDoctor con = new ConnectedDoctor(e.getDoctorName(),e.getDoctorLicense(),(this.DoctorHandler.findByNameAndDoctorLicense(e.getDoctorName(), e.getDoctorLicense())).getMetaId());
-//				connections.add(con);
-//			}
-//		}
-//		return connections;
-//	}
-
+	@Override
+	public List<PatientPublicProfile> getRequestedPublicProfiles(List<String> patientIds) {
+		return patientIds.stream().map(id->getPublicProfile(id)).collect(Collectors.toList());
+	}
 }

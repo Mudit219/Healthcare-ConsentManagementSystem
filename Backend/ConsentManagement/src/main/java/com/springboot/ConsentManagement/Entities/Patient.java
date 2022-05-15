@@ -10,8 +10,11 @@ public class Patient {
 	@Column(name="PatientName",nullable = false)
 	private String name;
 	
-	@Column(name="PhoneNumber",nullable = false)
+	@Column(name="PhoneNumber")
 	private String phone;
+
+	@Column(name="AbhaId",nullable=false)
+	private String abhaId;
 	
 	@Id
 	private String metaId;
@@ -37,6 +40,7 @@ public class Patient {
 
 	public Patient(String name,
 				   String phone,
+				   String abhaId,
 				   String metaId,
 				   String email,
 				   Character gender,
@@ -45,12 +49,21 @@ public class Patient {
 				   Set<Authority> authorities) {
 		this.name = name;
 		this.phone = phone;
+		this.abhaId = abhaId;
 		this.metaId = metaId;
 		this.email = email;
 		this.gender = gender;
 		this.patientImage = patientImage;
 		this.password = password;
 		this.authorities = authorities;
+	}
+
+	public String getAbhaId() {
+		return this.abhaId;
+	}
+
+	public void setAbhaId(String abhaId) {
+		this.abhaId = abhaId;
 	}
 
 	public String getPassword() {

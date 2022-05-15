@@ -55,7 +55,7 @@ public class AdminService {
     }
 
     public Patient addPatient(Patient patient) throws IllegalAccessException{
-        if(this.PatientHandler.findByNameAndPhone(patient.getName(),patient.getPhone()) != null)
+        if(this.PatientHandler.findByAbhaId(patient.getAbhaId()) != null)
             throw new IllegalAccessException("This patient already exists");
 
         contractService.AddNewUserToContract(patient.getMetaId(),"patient");
@@ -114,7 +114,7 @@ public class AdminService {
                     records.get(i).getDoctorName(),
                     records.get(i).getDoctorLicense());
             if(doc!=null) {
-                availableDoctors.add(new AvailableDoctors(records.get(i).gethospitalName(),
+                availableDoctors.add(new AvailableDoctors(records.get(i).getHospitalName(),
                         records.get(i).getDoctorName(),
                         doc.getSpecialization(), doc.getMetaId()));
             }

@@ -10,7 +10,9 @@ public interface RecordRepository extends JpaRepository<EHealthRecord, String> {
 	
 	public List<EHealthRecord> findByPatientNameAndPatientPhone(String patientName, String patientPhone);
 	
-	public EHealthRecord findByPatientNameAndPatientPhoneAndEhrId(String patientName, String patientPhone,String RecordIds);
+	public EHealthRecord findByPatientNameAndAbhaIdAndEhrId(String patientName, String abhaId,String RecordIds);
+
+	public List<EHealthRecord> findByAbhaId(String abhaId);
 
 	public List<EHealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense);
 }
