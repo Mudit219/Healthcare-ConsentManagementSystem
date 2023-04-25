@@ -67,7 +67,7 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 			.compact();
 		
 		response.addHeader("Authorization", "Bearer " + token);
-		
+		System.out.println("This is response: " + response.getHeader("Authorization"));
 	}
 	
 	

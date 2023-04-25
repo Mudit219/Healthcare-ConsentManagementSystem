@@ -45,6 +45,7 @@ public class DoctorService {
 		GrantedRecords.clear();
 		this.accessGrantedRecords(DoctorId, RecordIds);
 		this.accessOwnRecords(DoctorId);
+		System.out.println("Here are some records:" + GrantedRecords);
 		return GrantedRecords;
 	}
 	

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.ConsentManagement.ConsentService.DoctorService;
 
 @RestController
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class DoctorController {
 	
 	@Autowired

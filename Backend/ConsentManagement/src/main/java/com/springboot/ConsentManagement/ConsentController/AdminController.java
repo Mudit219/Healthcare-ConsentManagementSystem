@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000",allowedHeaders = {"Authorization","Content-Type"})
+//@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
 public class AdminController {
 

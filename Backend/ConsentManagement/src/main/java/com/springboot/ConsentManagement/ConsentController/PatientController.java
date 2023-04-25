@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.ConsentManagement.ConsentService.PatientService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000",allowedHeaders = {"Authorization","Content-Type"})
 public class PatientController {
 	
 	@Autowired

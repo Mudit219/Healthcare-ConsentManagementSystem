@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.springboot.ConsentManagement.JWT.JWTUsernameAndPasswordAuthenticationFilter;
@@ -51,8 +52,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 		// For every request made by the user, the token given with it is verified and then only user is authorized to execute tasks for which he is given authority.
 		JWTTokenVerifier customTokenFilter = new JWTTokenVerifier();
 
-		http
-				.cors(Customizer.withDefaults())
+		http.requiresChannel(channel ->
+						channel.anyRequest().requiresSecure())
+			.cors().and()
 			.csrf().disable()
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -84,16 +86,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-
-		configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-		configuration.setAllowedHeaders(List.of("*"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","https://consentmanagementfrontend-c630f6.spheron.app"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
 		configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS"));
 		configuration.setAllowCredentials(true);
-		configuration.addExposedHeader("Authorization");
-
+		configuration.setExposedHeaders(Arrays.asList("*")); // Very important to use. If not written then although in response we will get authorization token but will not be able to access it in front end.
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
-
 		return source;
 	}
 	@Bean
@@ -108,4 +107,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(daoAuthenticationProvider());
 	}
+
+
 }

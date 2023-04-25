@@ -3,7 +3,7 @@
 -- Host: localhost    Database: hospital_database
 -- ------------------------------------------------------
 -- Server version	8.0.21
-
+Use consentmanagement;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
