@@ -1,12 +1,12 @@
-package com.springboot.ConsentManagement.ConsentDao;
+package com.springboot.ConsentManagement.ConsentDatabase.ConsentDao;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.springboot.ConsentManagement.Entities.EHealthRecord;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
 
-public interface RecordRepository extends JpaRepository<EHealthRecord, String> {
+public interface RecordRepositoryAPI extends JpaRepository<EHealthRecord, String> {
 	
 	public List<EHealthRecord> findByPatientNameAndPatientPhone(String patientName, String patientPhone);
 	

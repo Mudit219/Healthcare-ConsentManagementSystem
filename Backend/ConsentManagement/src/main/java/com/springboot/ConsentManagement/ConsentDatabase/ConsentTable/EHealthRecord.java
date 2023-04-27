@@ -1,4 +1,4 @@
-package com.springboot.ConsentManagement.Entities;
+package com.springboot.ConsentManagement.ConsentDatabase.ConsentTable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,39 +11,40 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name="EHealthRecords")
+@Table(name="EHealth_Records")
 public class EHealthRecord {
 	
 	@Id
+	@Column(name="ehr_id")
 	private String ehrId;
 
-	@Column(name="AbhaId",nullable = false)
+	@Column(name="abha_id",nullable = false)
 	private String abhaId;
 	
-	@Column(name="PatientName",nullable = false)
+	@Column(name="patient_name",nullable = false)
 	private String patientName;
 	
-	@Column(name="DoctorName",nullable = false)
+	@Column(name="doctor_name",nullable = false)
 	private String doctorName;
 	
-	@Column(name="HospitalName",nullable = false)
+	@Column(name="hospital_name",nullable = false)
 	private String hospitalName;
 	
-	@Column(name="PatientPhone",nullable = false)
+	@Column(name="patient_phone",nullable = false)
 	private String patientPhone;
 	
-	@Column(name="Diagnosis",nullable = false)
+	@Column(name="diagnosis",nullable = false)
 	private String diagnosis;
 	
 	
-	@Column(name="Date")
+	@Column(name="date")
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate date;
 		
-	@Column(name="Prescription")
+	@Column(name="prescription")
 	private String prescription;
 	
-	@Column(name="DoctorLicense")
+	@Column(name="doctor_license")
 	private String doctorLicense;
 	
 	

@@ -1,12 +1,10 @@
 package com.springboot.ConsentManagement.Security;
 
-import com.springboot.ConsentManagement.ConsentDao.AuthorityRepository;
-import com.springboot.ConsentManagement.Entities.Authority;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.AuthorityRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Authority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 public class AssignUserAuthorities {
 
     @Autowired
-    private AuthorityRepository authorityRepo;
+    private AuthorityRepositoryAPI authorityRepo;
 
     public Set<Authority> getGrantedAuthorities(ConsentUserRole role){
 		Set<Authority> authorities = role.getPermissions()

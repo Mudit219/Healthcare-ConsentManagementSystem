@@ -1,8 +1,6 @@
 package com.springboot.ConsentManagement.Security;
 
 
-import com.springboot.ConsentManagement.Entities.EHealthRecord;
-
 // These are all the permissions available.
 public enum ConsentUserPermission {
 	PROFILE_PATIENT_READ("profile_patient:read"),

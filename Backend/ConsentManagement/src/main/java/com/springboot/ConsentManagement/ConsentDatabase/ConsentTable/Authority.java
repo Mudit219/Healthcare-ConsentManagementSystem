@@ -1,4 +1,4 @@
-package com.springboot.ConsentManagement.Entities;
+package com.springboot.ConsentManagement.ConsentDatabase.ConsentTable;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="Authority",nullable = false)
+    @Column(name="authority",nullable = false)
     private String authority;
 
     public Authority() {

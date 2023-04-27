@@ -2,40 +2,36 @@ package com.springboot.ConsentManagement.ConsentService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 //import javafx.util.Pair;
 
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Doctor;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
-import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
-import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.util.Pair;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
-import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
-import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
-
-import javax.print.Doc;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.DoctorRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.PatientRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.RecordRepositoryAPI;
 
 @Service
 public class DoctorService {
 	
 	@Autowired
-	private PatientRepository PatientHandler;
+	private PatientRepositoryAPI PatientHandler;
 
 	@Autowired
 	@Qualifier("contractServiceConfiguration")
 	ContractService contractService;
 	@Autowired
-	private RecordRepository RecordHandler;
+	private RecordRepositoryAPI RecordHandler;
 	
 	@Autowired
-	private DoctorRepository DoctorHandler;
+	private DoctorRepositoryAPI DoctorHandler;
 
 
 	List<EHealthRecord> GrantedRecords = new ArrayList<EHealthRecord>();

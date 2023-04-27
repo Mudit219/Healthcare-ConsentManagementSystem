@@ -1,20 +1,11 @@
 package com.springboot.ConsentManagement.Security;
 
-import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.springboot.ConsentManagement.ConsentDao.AuthorityRepository;
-import com.springboot.ConsentManagement.Entities.Authority;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.google.common.collect.Sets;
-import org.springframework.stereotype.Service;
 
 import static com.springboot.ConsentManagement.Security.ConsentUserPermission.*;
 

@@ -1,12 +1,12 @@
 package com.springboot.ConsentManagement.ConsentController;
 
 import java.util.List;
-import java.util.Set;
 
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

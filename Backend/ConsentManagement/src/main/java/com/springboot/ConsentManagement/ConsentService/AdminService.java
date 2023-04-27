@@ -1,8 +1,12 @@
 package com.springboot.ConsentManagement.ConsentService;
 
-import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
-import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
-import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.DoctorRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.PatientRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.RecordRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Authority;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Doctor;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
@@ -11,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,12 +29,12 @@ public class AdminService {
     @Autowired
     AssignUserAuthorities assignUserAuthorities;
     @Autowired
-    private PatientRepository PatientHandler;
+    private PatientRepositoryAPI PatientHandler;
 
     @Autowired
-    private RecordRepository RecordHandler;
+    private RecordRepositoryAPI RecordHandler;
     @Autowired
-    private DoctorRepository DoctorHandler;
+    private DoctorRepositoryAPI DoctorHandler;
 
     public Boolean isDoctorValid(String metaId){
         Doctor doc = this.DoctorHandler.findByMetaId(metaId);
@@ -64,7 +67,7 @@ public class AdminService {
     }
 
 
-    public void updateAuthorities(String metaId, Set<Authority> authorities,String role) {
+    public void updateAuthorities(String metaId, Set<Authority> authorities, String role) {
         if(role.equals("Doc")) {
             Doctor doc = this.DoctorHandler.findByMetaId(metaId);
             Set<Authority> docAuthorities = doc.getAuthorities();

@@ -1,4 +1,6 @@
-package com.springboot.ConsentManagement.Entities;
+package com.springboot.ConsentManagement.ConsentDatabase.ConsentTable;
+
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Authority;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -7,28 +9,29 @@ import java.util.Set;
 @Table(name="Patient")
 public class Patient {
 	
-	@Column(name="PatientName",nullable = false)
+	@Column(name="patient_name",nullable = false)
 	private String name;
 	
-	@Column(name="PhoneNumber")
+	@Column(name="phone_number")
 	private String phone;
 
-	@Column(name="AbhaId",nullable=false)
+	@Column(name="abha_id",nullable=false)
 	private String abhaId;
 	
 	@Id
+	@Column(name="meta_id")
 	private String metaId;
 	
-	@Column(name="Email")
+	@Column(name="email")
 	private String email;
 	
-	@Column(name="Gender")
+	@Column(name="gender")
 	private Character gender;
 	
-	@Column(name="PatientImage")
+	@Column(name="patient_image")
 	private String patientImage;
 
-	@Column(name="Password")
+	@Column(name="password")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)

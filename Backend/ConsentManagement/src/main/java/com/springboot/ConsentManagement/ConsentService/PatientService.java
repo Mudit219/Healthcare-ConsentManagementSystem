@@ -1,8 +1,9 @@
 package com.springboot.ConsentManagement.ConsentService;
 
 import java.util.List;
-import java.util.Set;
 
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.Entities.*;
 
 public interface PatientService {

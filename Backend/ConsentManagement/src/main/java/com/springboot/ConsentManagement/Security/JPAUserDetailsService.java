@@ -1,9 +1,9 @@
 package com.springboot.ConsentManagement.Security;
 
-import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
-import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
-import com.springboot.ConsentManagement.Entities.Doctor;
-import com.springboot.ConsentManagement.Entities.Patient;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.DoctorRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.PatientRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Doctor;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class JPAUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private DoctorRepository doctorRepo;
+    private DoctorRepositoryAPI doctorRepo;
 
     @Autowired
-    private PatientRepository patientRepo;
+    private PatientRepositoryAPI patientRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

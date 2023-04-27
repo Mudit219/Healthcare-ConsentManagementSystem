@@ -1,16 +1,16 @@
 package com.springboot.ConsentManagement.ConsentController;
 
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Authority;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Doctor;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.ConsentService.AdminService;
 import com.springboot.ConsentManagement.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
-//@CrossOrigin(origins = "http://localhost:3000",allowedHeaders = {"Authorization","Content-Type"})
-//@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
 public class AdminController {
 
@@ -57,4 +57,5 @@ public class AdminController {
     public Set<AvailableDoctors> getAvailableDoctors() {
         return this.AdminServiceHandler.getAvailableDoctors();
     }
+
 }

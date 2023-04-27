@@ -2,31 +2,31 @@ package com.springboot.ConsentManagement.ConsentService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.Entities.*;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
-import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.ConsentManagement.ConsentDao.RecordRepository;
-import com.springboot.ConsentManagement.ConsentDao.DoctorRepository;
-import com.springboot.ConsentManagement.ConsentDao.PatientRepository;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.RecordRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.DoctorRepositoryAPI;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.PatientRepositoryAPI;
 
 @Service
 public class PatientServiceImp implements PatientService{
 	
 	@Autowired
-	private RecordRepository EHRecordHander;
+	private RecordRepositoryAPI EHRecordHander;
 	
 	@Autowired
-	private PatientRepository PatientHandler;
+	private PatientRepositoryAPI PatientHandler;
 //	List<EHealthRecord> Records;
 	
 	@Autowired
-	private DoctorRepository DoctorHandler;
+	private DoctorRepositoryAPI DoctorHandler;
 
 	@Autowired
 	AssignUserAuthorities assignUserAuthorities;

@@ -1,6 +1,6 @@
-package com.springboot.ConsentManagement.Entities;
+package com.springboot.ConsentManagement.ConsentDatabase.ConsentTable;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Authority;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,31 +9,32 @@ import java.util.Set;
 @Table(name="Doctor")
 public class Doctor {
 	
-	@Column(name="DoctorName",nullable = false)
+	@Column(name="doctor_name",nullable = false)
 	private String name;
 	
-	@Column(name="PhoneNumber")
+	@Column(name="phone_number")
 	private String phone;
 	
 	@Id
+	@Column(name="meta_id")
 	private String metaId;
 	
-	@Column(name="Email")
+	@Column(name="email")
 	private String email;
 	
-	@Column(name="Gender")
+	@Column(name="gender")
 	private Character gender;
 	
-	@Column(name="Specialization")
+	@Column(name="specialization")
 	private String specialization;
 	
-	@Column(name="DoctorLicense",nullable = false)
+	@Column(name="doctor_license",nullable = false)
 	private String doctorLicense;
 	
-	@Column(name="DoctorImage")
+	@Column(name="doctor_image")
 	private String doctorImage;
 
-	@Column(name="Password")
+	@Column(name="password")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
