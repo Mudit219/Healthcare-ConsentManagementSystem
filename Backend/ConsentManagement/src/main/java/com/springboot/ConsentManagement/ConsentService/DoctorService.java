@@ -10,6 +10,7 @@ import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthReco
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -44,15 +45,16 @@ public class DoctorService {
 		System.out.println("Here are some records:" + GrantedRecords);
 		return GrantedRecords;
 	}
-	
-	public void accessGrantedRecords(String DoctorId,List<ConsentedRecords> ConsentedRecords) {
+
+	public void accessGrantedRecords(String DoctorId,List<ConsentedRecords> RecordIds){
 
 		Patient pat = null;
-		for (int i = 0; i < ConsentedRecords.size(); i++) {
-			pat = this.PatientHandler.findByMetaId(ConsentedRecords.get(i).getPatientId());
-			if (contractService.CheckValidRecords(DoctorId, ConsentedRecords.get(i).getRecordIds()) == Boolean.TRUE) {
-				for (int j = 0; j < ConsentedRecords.get(i).getRecordIds().size(); j++) {
-					this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(), ConsentedRecords.get(i).getRecordIds().get(j)));
+		for(int i=0;i<RecordIds.size();i++) {
+			pat = this.PatientHandler.findByMetaId(RecordIds.get(i).getPatientId());
+			Pair<Boolean,Boolean> res = contractService.CheckValidRecords(DoctorId,RecordIds.get(i).getRecordIds());
+			if(res.getFirst() == Boolean.TRUE && res.getSecond() == Boolean.TRUE) {
+				for (int j = 0; j < RecordIds.get(i).getRecordIds().size(); j++) {
+					this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(), RecordIds.get(i).getRecordIds().get(j)));
 				}
 			}
 		}

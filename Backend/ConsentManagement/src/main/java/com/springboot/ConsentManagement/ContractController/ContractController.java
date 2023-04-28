@@ -1,5 +1,6 @@
 package com.springboot.ConsentManagement.ContractController;
 
+import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,36 +21,40 @@ public class ContractController {
     @Autowired
     @Qualifier("contractServiceConfiguration")
     ContractService service;
-    
+
     @GetMapping("/owner")
     public String getOwnerAccount() {
-    	return service.getOwnerAccount();
+        return service.getOwnerAccount();
     }
 
     @PostMapping("/AddNewUser")
     public String AddNewuser(String _user,String role) {
-        service.AddNewUserToContract(_user,role);
-        return "User has been successfully added to the contract";
+        Pair<Boolean, String> res = service.AddNewUserToContract(_user,role);
+        return res.getSecond();
     }
 
     @PostMapping
     public Contract createContract(@RequestBody Contract newContract) throws Exception {
-    	return service.createContract(newContract);
+        return service.createContract(newContract);
     }
 
     @PostMapping("/ReqConns")
     public List RequestedConnections(String _user) throws Exception {
-        return service.GetRequestedConnection(_user);
+        Pair<Boolean,List> res = service.GetRequestedConnection(_user);
+        return res.getSecond();
     }
 
     @PostMapping("/AcceptConns")
     public List AcceptedConnections(String _user) throws Exception {
-        return service.GetAcceptedConnection(_user);
+
+        Pair<Boolean,List> res = service.GetAcceptedConnection(_user);
+        return res.getSecond();
     }
 
     @PostMapping("/CheckValidRecords")
     public Boolean RequestedConnections(String _doctor,List<String> records) throws Exception {
-        return service.CheckValidRecords(_doctor,records);
+        Pair<Boolean,Boolean> res = service.CheckValidRecords(_doctor,records);
+        return res.getSecond();
     }
 
 //    @GetMapping("/Notifications")
