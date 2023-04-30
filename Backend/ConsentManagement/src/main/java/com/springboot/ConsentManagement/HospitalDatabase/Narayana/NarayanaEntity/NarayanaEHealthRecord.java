@@ -1,6 +1,7 @@
 package com.springboot.ConsentManagement.HospitalDatabase.Narayana.NarayanaEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.springboot.ConsentManagement.Entities.HealthRecord;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name="EHealth_Records")
-public class NarayanaEHealthRecord {
+public class NarayanaEHealthRecord extends HealthRecord {
 
     @Id
     @Column(name="ehr_id")

@@ -1,6 +1,7 @@
 package com.springboot.ConsentManagement.HospitalDatabase.Kavery.KaveryEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.springboot.ConsentManagement.Entities.HealthRecord;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @Entity
 @Table(name="EHealth_Records")
-public class KaveryEHealthRecord {
+public class KaveryEHealthRecord extends HealthRecord {
 
     @Id
     @Column(name="ehr_id")
