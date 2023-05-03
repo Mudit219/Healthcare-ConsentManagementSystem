@@ -10,6 +10,7 @@ import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthReco
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
+import com.springboot.ConsentManagement.HospitalFactory;
 import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.DoctorRepositoryAPI;
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.PatientRepositoryAPI;
-import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.RecordRepositoryAPI;
 
 @Service
 public class DoctorService {
@@ -28,20 +28,21 @@ public class DoctorService {
 	@Autowired
 	@Qualifier("contractServiceConfiguration")
 	ContractService contractService;
+
 	@Autowired
-	private RecordRepositoryAPI RecordHandler;
+	private HospitalFactory hospitalFactory;
 	
 	@Autowired
 	private DoctorRepositoryAPI DoctorHandler;
 
 
-	List<EHealthRecord> GrantedRecords = new ArrayList<EHealthRecord>();
+	List<HealthRecord> GrantedRecords = new ArrayList<>();
 
 	
-	public List<EHealthRecord> accessRecords(String DoctorId,List<ConsentedRecords> RecordIds){
+	public List<HealthRecord> accessRecords(String DoctorId,List<ConsentedRecords> RecordIds,List<String> hospitalNames){
 		GrantedRecords.clear();
 		this.accessGrantedRecords(DoctorId, RecordIds);
-		this.accessOwnRecords(DoctorId);
+		this.accessOwnRecords(DoctorId,hospitalNames);
 		System.out.println("Here are some records:" + GrantedRecords);
 		return GrantedRecords;
 	}
@@ -54,20 +55,23 @@ public class DoctorService {
 			Pair<Boolean,Boolean> res = contractService.CheckValidRecords(DoctorId,RecordIds.get(i).getRecordIds());
 			if(res.getFirst() == Boolean.TRUE && res.getSecond() == Boolean.TRUE) {
 				for (int j = 0; j < RecordIds.get(i).getRecordIds().size(); j++) {
-					this.GrantedRecords.add(this.RecordHandler.findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(), RecordIds.get(i).getRecordIds().get(j)));
+					String recordId = RecordIds.get(i).getRecordIds().get(j);
+					String hospName = recordId.split("-")[0].replace("#","");
+					this.GrantedRecords.add(hospitalFactory.getHospital(hospName).findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(), RecordIds.get(i).getRecordIds().get(j)));
 				}
 			}
 		}
 	}
 
-	public void accessOwnRecords(String DoctorId){
+	public void accessOwnRecords(String DoctorId,List<String> hospitalNames){
 		
 		Doctor doc = this.DoctorHandler.findByMetaId(DoctorId);
-		List<EHealthRecord> linkedWithDoc;
-		linkedWithDoc = this.RecordHandler.findByDoctorNameAndDoctorLicense(doc.getName(),doc.getDoctorLicense());
-		for(int i=0;i<linkedWithDoc.size();i++) {
-			GrantedRecords.add(linkedWithDoc.get(i));
-		}
+		List<List<? extends HealthRecord>> recordsLinkedWithDoc;
+		recordsLinkedWithDoc = hospitalNames.stream()
+				.map(name ->
+				hospitalFactory.getHospital(name).findByDoctorNameAndDoctorLicense(doc.getName(),doc.getDoctorLicense()))
+				.collect(Collectors.toList());
+		recordsLinkedWithDoc.stream().forEach(recordList -> GrantedRecords.addAll(recordList));
 	}
 	
 	public Doctor getProfile(String metaId) {
@@ -100,16 +104,17 @@ public class DoctorService {
 	}
 
 	public List<ConnectedPatient> getConnections(String metaId) {
-		GrantedRecords.clear();
-		this.accessOwnRecords(metaId);
-		List<ConnectedPatient> connections = new ArrayList<ConnectedPatient>();
-		for(EHealthRecord e: GrantedRecords) {
-			if(this.PatientHandler.findByNameAndPhone(e.getPatientName(), e.getPatientPhone())!=null){
-				ConnectedPatient con = new ConnectedPatient(e.getPatientName(),e.getPatientPhone(),(this.PatientHandler.findByNameAndPhone(e.getPatientName(), e.getPatientPhone())).getMetaId());
-				connections.add(con);
-			}
-		}
-		return connections;
+//		GrantedRecords.clear();
+//		this.accessOwnRecords(metaId);
+//		List<ConnectedPatient> connections = new ArrayList<ConnectedPatient>();
+//		for(EHealthRecord e: GrantedRecords) {
+//			if(this.PatientHandler.findByNameAndPhone(e.getPatientName(), e.getPatientPhone())!=null){
+//				ConnectedPatient con = new ConnectedPatient(e.getPatientName(),e.getPatientPhone(),(this.PatientHandler.findByNameAndPhone(e.getPatientName(), e.getPatientPhone())).getMetaId());
+//				connections.add(con);
+//			}
+//		}
+//		return connections;
+		return null;
 	}
 
 }

@@ -5,9 +5,12 @@ import com.springboot.ConsentManagement.Entities.HealthRecord;
 import com.springboot.ConsentManagement.HospitalDatabase.Narayana.NarayanaEntity.NarayanaEHealthRecord;
 import com.springboot.ConsentManagement.HospitalDatabase.Narayana.NarayanaRepositoryAPI.NarayanaRepoAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("NarayanaService")
 public class NarayanaService implements HospitalService {
 
     @Autowired
@@ -20,16 +23,22 @@ public class NarayanaService implements HospitalService {
 
     @Override
     public HealthRecord findByPatientNameAndAbhaIdAndEhrId(String patientName, String abhaId, String RecordIds) {
-        return null;
+        return narayanaRepoAPI.findByPatientNameAndAbhaIdAndEhrId(patientName,abhaId,RecordIds);
     }
 
     @Override
     public List<NarayanaEHealthRecord> findByAbhaId(String abhaId) {
-        return null;
+        return narayanaRepoAPI.findByAbhaId(abhaId);
+//        return null;
     }
 
     @Override
     public List<HealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
         return null;
+    }
+
+    @Override
+    public List<? extends HealthRecord> findAll() {
+        return narayanaRepoAPI.findAll();
     }
 }

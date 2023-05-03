@@ -3,17 +3,19 @@ package com.springboot.ConsentManagement.HospitalDatabase.Narayana.NarayanaRepos
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
 import com.springboot.ConsentManagement.HospitalDatabase.Narayana.NarayanaEntity.NarayanaEHealthRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 public interface NarayanaRepoAPI extends JpaRepository<NarayanaEHealthRecord,String> {
 
-    public List<EHealthRecord> findByPatientNameAndPatientPhone(String patientName, String patientPhone);
+    public List<NarayanaEHealthRecord> findByPatientNameAndPatientPhone(String patientName, String patientPhone);
 
-    public EHealthRecord findByPatientNameAndAbhaIdAndEhrId(String patientName, String abhaId,String RecordIds);
+    public NarayanaEHealthRecord findByPatientNameAndAbhaIdAndEhrId(String patientName, String abhaId,String RecordIds);
 
-    public List<EHealthRecord> findByAbhaId(String abhaId);
+    public List<NarayanaEHealthRecord> findByAbhaId(String abhaId);
 
-    public List<EHealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense);
+    public List<NarayanaEHealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense);
 
 }

@@ -7,24 +7,21 @@ import java.util.stream.Collectors;
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthRecord;
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.Entities.*;
+import com.springboot.ConsentManagement.HospitalFactory;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.RecordRepositoryAPI;
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.DoctorRepositoryAPI;
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentDao.PatientRepositoryAPI;
 
 @Service
 public class PatientServiceImp implements PatientService{
-	
-	@Autowired
-	private RecordRepositoryAPI EHRecordHander;
-	
 	@Autowired
 	private PatientRepositoryAPI PatientHandler;
-//	List<EHealthRecord> Records;
-	
+
+	@Autowired
+	private HospitalFactory hospitalFactory;
 	@Autowired
 	private DoctorRepositoryAPI DoctorHandler;
 
@@ -35,10 +32,18 @@ public class PatientServiceImp implements PatientService{
 	}
 
 	@Override
-	public List<EHealthRecord> getPatientRecords(String metaId) {
+	public List<List<? extends HealthRecord>> getPatientRecords(String metaId,List<String> hospitalNames) {
 		Patient pat = this.PatientHandler.findByMetaId(metaId);
-//		return this.EHRecordHander.findByPatientNameAndPatientPhone(pat.getName(), pat.getPhone());
-		return this.EHRecordHander.findByAbhaId(pat.getAbhaId());
+		List<List<? extends HealthRecord>> patientRecordsList = hospitalNames.stream()
+				.map(name ->
+						hospitalFactory.getHospital(name).findByAbhaId(pat.getAbhaId()))
+				.collect(Collectors.toList());
+		patientRecordsList.stream()
+				.forEach(recordList ->
+				recordList.stream()
+						.forEach(healthRecord ->
+								healthRecord.setEhrId("#" + healthRecord.getHospitalName().split(" ")[0] + "-" + healthRecord.getEhrId())));
+		return patientRecordsList;
 	}
 
 	@Override

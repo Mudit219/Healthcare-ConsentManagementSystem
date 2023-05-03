@@ -4,10 +4,14 @@ import com.springboot.ConsentManagement.ConsentService.HospitalService;
 import com.springboot.ConsentManagement.Entities.HealthRecord;
 import com.springboot.ConsentManagement.HospitalDatabase.Kavery.KaveryEntity.KaveryEHealthRecord;
 import com.springboot.ConsentManagement.HospitalDatabase.Kavery.KaveryRepositoryAPI.KaveryRepoAPI;
+import org.checkerframework.framework.qual.QualifierArgument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("KaveryService")
 public class KaveryService implements HospitalService {
 
     @Autowired
@@ -20,16 +24,21 @@ public class KaveryService implements HospitalService {
 
     @Override
     public HealthRecord findByPatientNameAndAbhaIdAndEhrId(String patientName, String abhaId, String RecordIds) {
-        return null;
+        return kaveryRepoAPI.findByPatientNameAndAbhaIdAndEhrId(patientName,abhaId,RecordIds);
     }
 
     @Override
     public List<KaveryEHealthRecord> findByAbhaId(String abhaId) {
-        return null;
+        return kaveryRepoAPI.findByAbhaId(abhaId);
     }
 
     @Override
     public List<HealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
         return null;
+    }
+
+    @Override
+    public List<? extends HealthRecord> findAll() {
+        return kaveryRepoAPI.findAll();
     }
 }

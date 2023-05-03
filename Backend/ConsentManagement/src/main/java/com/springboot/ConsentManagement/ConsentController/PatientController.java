@@ -22,10 +22,10 @@ public class PatientController {
 	@Autowired
 	private PatientService PatientServiceHandler;
 
-	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_PATIENT')")
-	@GetMapping(path="/Pat/{metaId}/E-Health-Records")
-	public List<EHealthRecord> getPatientRecords(@PathVariable("metaId") String metaId){
-		return this.PatientServiceHandler.getPatientRecords(metaId);
+//	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_PATIENT')")
+	@PostMapping(path="/Pat/{metaId}/E-Health-Records")
+	public List<List<? extends HealthRecord>> getPatientRecords(@PathVariable("metaId") String metaId,@RequestBody List<String> hospitalNames){
+		return this.PatientServiceHandler.getPatientRecords(metaId,hospitalNames);
 	}
 
 	@GetMapping(path="/Pat/{metaId}/Consents")

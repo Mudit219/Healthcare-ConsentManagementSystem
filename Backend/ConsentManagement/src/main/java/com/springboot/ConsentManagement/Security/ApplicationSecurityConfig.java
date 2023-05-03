@@ -78,7 +78,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/Pat/**/Profile-public").permitAll()
 				.antMatchers("/Doc/Profile-public").permitAll()
 				.antMatchers("/Pat/Profile-public").permitAll()
-
+				.antMatchers("/Pat/**/E-Health-Records").permitAll()
 				.anyRequest()
 			.authenticated(); // For any request made by user, he/she has to be authenticated.
 	}

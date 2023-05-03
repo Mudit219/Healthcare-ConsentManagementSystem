@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @Entity
 @Table(name="EHealth_Records")
-public class KaveryEHealthRecord extends HealthRecord {
+public class KaveryEHealthRecord implements HealthRecord {
 
     @Id
     @Column(name="ehr_id")
@@ -51,4 +51,5 @@ public class KaveryEHealthRecord extends HealthRecord {
 
     @Column(name="doctor_license")
     private String doctorLicense;
+
 }

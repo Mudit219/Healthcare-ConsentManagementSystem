@@ -9,6 +9,7 @@ import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthReco
 import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.ContractService.ContractService;
 import com.springboot.ConsentManagement.Entities.*;
+import com.springboot.ConsentManagement.HospitalFactory;
 import com.springboot.ConsentManagement.Security.AssignUserAuthorities;
 import com.springboot.ConsentManagement.Security.ConsentUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class AdminService {
 
     @Autowired
     private RecordRepositoryAPI RecordHandler;
+
+    @Autowired
+    private HospitalFactory hospitalFactory;
     @Autowired
     private DoctorRepositoryAPI DoctorHandler;
 
@@ -108,21 +112,38 @@ public class AdminService {
         return (this.PatientHandler.findByMetaId(metaId)).getAuthorities();
     }
 
-    public Set<AvailableDoctors> getAvailableDoctors(){
-        List<EHealthRecord> records = this.RecordHandler.findAll();
-        Set<AvailableDoctors> availableDoctors = new HashSet<>();
-        Doctor doc;
-        for(int i=0;i<records.size();i++){
-            doc = this.DoctorHandler.findByNameAndDoctorLicense(
-                    records.get(i).getDoctorName(),
-                    records.get(i).getDoctorLicense());
-            if(doc!=null) {
-                availableDoctors.add(new AvailableDoctors(records.get(i).getHospitalName(),
-                        records.get(i).getDoctorName(),
-                        doc.getSpecialization(), doc.getMetaId()));
-            }
-        }
-        return availableDoctors.stream().distinct().collect(Collectors.toSet());
+    public List<String> getAvailableHospitals(){
+        return List.of("Kavery","Narayana","Fortis");
     }
+    public Set<AvailableDoctors> getAvailableDoctors(){
+        List<String> hospitals = getAvailableHospitals();
+        List<List<? extends HealthRecord>> records;
+        Set<AvailableDoctors> availableDoctors = new HashSet<>();
+
+        records = hospitals.stream().map(name -> hospitalFactory.getHospital(name).findAll()).collect(Collectors.toList());
+        records.stream().
+                forEach(recordList -> recordList.stream().
+                        filter(record -> this.DoctorHandler.findByNameAndDoctorLicense(record.getDoctorName(),record.getDoctorLicense())!=null).
+                        forEach(record -> {
+                            Doctor doc =  this.DoctorHandler.findByNameAndDoctorLicense(record.getDoctorName(),record.getDoctorLicense());
+                            availableDoctors.add(new AvailableDoctors(record.getHospitalName(),record.getDoctorName(),doc.getSpecialization(), doc.getMetaId()));
+                        }
+                ));
+//        List<EHealthRecord> records = this.RecordHandler.findAll();
+//        Doctor doc;
+//        for(int i=0;i<records.size();i++){
+//            doc = this.DoctorHandler.findByNameAndDoctorLicense(
+//                    records.get(i).getDoctorName(),
+//                    records.get(i).getDoctorLicense());
+//            if(doc!=null) {
+//                availableDoctors.add(new AvailableDoctors(records.get(i).getHospitalName(),
+//                        records.get(i).getDoctorName(),
+//                        doc.getSpecialization(), doc.getMetaId()));
+//            }
+//        }
+//        return availableDoctors.stream().collect(Collectors.toSet());
+        return availableDoctors;
+    }
+
 
 }

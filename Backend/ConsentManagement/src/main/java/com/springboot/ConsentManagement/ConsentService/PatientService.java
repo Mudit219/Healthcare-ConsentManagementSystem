@@ -7,7 +7,7 @@ import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.Patient;
 import com.springboot.ConsentManagement.Entities.*;
 
 public interface PatientService {
-	public List<EHealthRecord> getPatientRecords(String metaId);
+	public List<List<? extends HealthRecord>> getPatientRecords(String metaId,List<String> hospitalNames);
 	public Patient getProfile(String metaId);
 	public List<String> getDoctorNames(List<String> doctorIds);
 	public String getPatientId(String name,String phone);

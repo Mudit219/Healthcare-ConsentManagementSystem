@@ -4,6 +4,7 @@ import com.springboot.ConsentManagement.ConsentDatabase.ConsentTable.EHealthReco
 import com.springboot.ConsentManagement.Entities.HealthRecord;
 import com.springboot.ConsentManagement.HospitalDatabase.Fortis.FortisEntity.FortisEHealthRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

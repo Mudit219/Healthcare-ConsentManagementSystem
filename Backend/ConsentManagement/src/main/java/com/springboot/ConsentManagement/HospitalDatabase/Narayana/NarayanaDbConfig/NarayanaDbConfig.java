@@ -20,7 +20,7 @@ import java.util.HashMap;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "NarayanaEntityManagerFactory",
         transactionManagerRef = "NarayanaTransactionManager",
-        basePackages = {"com.springboot.ConsentManagement.HospitalDatabase.Naryana.NarayanaRepositoryAPI"}
+        basePackages = {"com.springboot.ConsentManagement.HospitalDatabase.Narayana.NarayanaRepositoryAPI"}
 )
 public class NarayanaDbConfig {
     @Autowired

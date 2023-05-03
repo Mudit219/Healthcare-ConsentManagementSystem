@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name="EHealth_Records")
-public class FortisEHealthRecord extends HealthRecord {
+public class FortisEHealthRecord implements HealthRecord{
 
     @Id
     @Column(name="ehr_id")
@@ -52,4 +52,5 @@ public class FortisEHealthRecord extends HealthRecord {
 
     @Column(name="doctor_license")
     private String doctorLicense;
+
 }

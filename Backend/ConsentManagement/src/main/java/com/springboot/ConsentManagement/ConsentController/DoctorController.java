@@ -24,9 +24,9 @@ public class DoctorController {
 	
 	@PreAuthorize("#metaId == authentication.name and hasRole('ROLE_DOCTOR')")
 	@PostMapping("/Doc/{metaId}/E-Health-Records")
-	public List<EHealthRecord> accessRecords(@PathVariable("metaId") String metaId,
-											 @RequestBody List<ConsentedRecords> consentRecords ){
-		return this.DoctorServiceHandler.accessRecords(metaId, consentRecords);
+	public List<? extends HealthRecord> accessRecords(@PathVariable("metaId") String metaId,
+											 @RequestBody List<ConsentedRecords> consentRecords,@RequestBody List<String> hospitalNames){
+		return this.DoctorServiceHandler.accessRecords(metaId, consentRecords,hospitalNames);
 	}
 
 	@PreAuthorize("(#metaId == authentication.name and hasRole('ROLE_DOCTOR'))")
