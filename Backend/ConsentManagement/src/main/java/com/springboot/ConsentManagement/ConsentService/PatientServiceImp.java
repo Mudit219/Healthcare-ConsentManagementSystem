@@ -43,6 +43,9 @@ public class PatientServiceImp implements PatientService{
 				recordList.stream()
 						.forEach(healthRecord ->
 								healthRecord.setEhrId("#" + healthRecord.getHospitalName().split(" ")[0] + "-" + healthRecord.getEhrId())));
+
+		patientRecordsList.forEach( recordlist -> recordlist.forEach( record -> System.out.println(record.getEhrId())));
+
 		return patientRecordsList;
 	}
 
