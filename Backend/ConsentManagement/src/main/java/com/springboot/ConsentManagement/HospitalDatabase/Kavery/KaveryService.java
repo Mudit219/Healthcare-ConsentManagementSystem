@@ -33,12 +33,17 @@ public class KaveryService implements HospitalService {
     }
 
     @Override
-    public List<HealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
-        return null;
+    public List<KaveryEHealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
+        return kaveryRepoAPI.findByDoctorNameAndDoctorLicense(name,doctorLicense);
     }
 
     @Override
     public List<? extends HealthRecord> findAll() {
         return kaveryRepoAPI.findAll();
+    }
+
+    @Override
+    public List<String> findDistinctDoctorLicenseInRepo() {
+        return null;
     }
 }

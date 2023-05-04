@@ -33,12 +33,19 @@ public class FortisService implements HospitalService {
     }
 
     @Override
-    public List<HealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
-        return null;
+    public List<FortisEHealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
+        return fortisRepoAPI.findByDoctorNameAndDoctorLicense(name,doctorLicense);
+
     }
 
     @Override
     public List<? extends HealthRecord> findAll() {
         return fortisRepoAPI.findAll();
     }
+
+    @Override
+    public List<String> findDistinctDoctorLicenseInRepo() {
+        return fortisRepoAPI.findDistinctDoctorLicenseInRepo();
+    }
+
 }
