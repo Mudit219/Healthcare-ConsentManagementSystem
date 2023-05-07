@@ -33,12 +33,18 @@ public class NarayanaService implements HospitalService {
     }
 
     @Override
-    public List<HealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
-        return null;
+    public List<NarayanaEHealthRecord> findByDoctorNameAndDoctorLicense(String name, String doctorLicense) {
+
+        return narayanaRepoAPI.findByDoctorNameAndDoctorLicense(name,doctorLicense);
     }
 
     @Override
     public List<? extends HealthRecord> findAll() {
         return narayanaRepoAPI.findAll();
+    }
+
+    @Override
+    public List<String> findDistinctDoctorLicenseInRepo() {
+        return null;
     }
 }

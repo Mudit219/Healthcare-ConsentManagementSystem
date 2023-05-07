@@ -35,6 +35,7 @@ public class PatientServiceImp implements PatientService{
 	public List<List<? extends HealthRecord>> getPatientRecords(String metaId,List<String> hospitalNames) {
 		Patient pat = this.PatientHandler.findByMetaId(metaId);
 		List<List<? extends HealthRecord>> patientRecordsList = hospitalNames.stream()
+				.filter(name -> hospitalFactory.getHospital(name) != null)
 				.map(name ->
 						hospitalFactory.getHospital(name).findByAbhaId(pat.getAbhaId()))
 				.collect(Collectors.toList());

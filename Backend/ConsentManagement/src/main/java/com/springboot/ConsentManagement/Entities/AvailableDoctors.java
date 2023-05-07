@@ -8,10 +8,9 @@ public class AvailableDoctors {
     private String doctorSpecialization;
     private String doctorMetaId;
 
-    public AvailableDoctors(String hospitalName, String doctorName, String doctorSpecialization, String doctorMetaId) {
+    public AvailableDoctors(String hospitalName, String doctorName, String doctorMetaId) {
         this.hospitalName = hospitalName;
         this.doctorName = doctorName;
-        this.doctorSpecialization = doctorSpecialization;
         this.doctorMetaId = doctorMetaId;
     }
 
@@ -31,13 +30,6 @@ public class AvailableDoctors {
         this.doctorName = doctorName;
     }
 
-    public String getDoctorSpecialization() {
-        return doctorSpecialization;
-    }
-
-    public void setDoctorSpecialization(String doctorSpecialization) {
-        this.doctorSpecialization = doctorSpecialization;
-    }
 
     public String getDoctorMetaId() {
         return doctorMetaId;
@@ -60,6 +52,6 @@ public class AvailableDoctors {
         if (this.getClass() != obj.getClass())
             return false;
         AvailableDoctors other = (AvailableDoctors) obj;
-        return Objects.equals(doctorMetaId, other.doctorMetaId);
+        return Objects.equals(doctorMetaId, other.doctorMetaId) && Objects.equals(hospitalName, other.hospitalName);
     }
 }

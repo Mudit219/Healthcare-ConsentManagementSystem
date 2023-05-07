@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -117,18 +118,20 @@ public class AdminService {
     }
     public Set<AvailableDoctors> getAvailableDoctors(){
         List<String> hospitals = getAvailableHospitals();
-        List<List<? extends HealthRecord>> records;
         Set<AvailableDoctors> availableDoctors = new HashSet<>();
 
-        records = hospitals.stream().map(name -> hospitalFactory.getHospital(name).findAll()).collect(Collectors.toList());
+        List<List<? extends HealthRecord>> records = hospitals.stream().map(name -> hospitalFactory.getHospital(name).findAll()).collect(Collectors.toList());
+
         records.stream().
                 forEach(recordList -> recordList.stream().
                         filter(record -> this.DoctorHandler.findByNameAndDoctorLicense(record.getDoctorName(),record.getDoctorLicense())!=null).
                         forEach(record -> {
                             Doctor doc =  this.DoctorHandler.findByNameAndDoctorLicense(record.getDoctorName(),record.getDoctorLicense());
-                            availableDoctors.add(new AvailableDoctors(record.getHospitalName(),record.getDoctorName(),doc.getSpecialization(), doc.getMetaId()));
+                            availableDoctors.add(new AvailableDoctors(record.getHospitalName(),record.getDoctorName(), doc.getMetaId()));
                         }
                 ));
+
+        System.out.println("PRinting Records Size : " + availableDoctors.size());
 //        List<EHealthRecord> records = this.RecordHandler.findAll();
 //        Doctor doc;
 //        for(int i=0;i<records.size();i++){

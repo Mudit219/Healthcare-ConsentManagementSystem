@@ -52,6 +52,7 @@ public class DoctorService {
 		Patient pat = null;
 		for(int i=0;i<RecordIds.size();i++) {
 			pat = this.PatientHandler.findByMetaId(RecordIds.get(i).getPatientId());
+			System.out.println("Consented Records" + RecordIds.size());
 			Pair<Boolean,Boolean> res = contractService.CheckValidRecords(DoctorId,RecordIds.get(i).getRecordIds());
 			if(res.getFirst() == Boolean.TRUE && res.getSecond() == Boolean.TRUE) {
 				for (int j = 0; j < RecordIds.get(i).getRecordIds().size(); j++) {
@@ -67,11 +68,32 @@ public class DoctorService {
 		
 		Doctor doc = this.DoctorHandler.findByMetaId(DoctorId);
 		List<List<? extends HealthRecord>> recordsLinkedWithDoc;
+
+//		System.out.println("Hospital names are hereeee");
+//		hospitalNames.forEach(System.out::println);
+
+		if(hospitalNames.size() == 0 || hospitalNames == null) {
+			return;
+		}
+
 		recordsLinkedWithDoc = hospitalNames.stream()
+				.filter(name -> hospitalFactory.getHospital(name) != null)
 				.map(name ->
-				hospitalFactory.getHospital(name).findByDoctorNameAndDoctorLicense(doc.getName(),doc.getDoctorLicense()))
+						hospitalFactory.getHospital(name).findByDoctorNameAndDoctorLicense(doc.getName(),doc.getDoctorLicense())
+				)
 				.collect(Collectors.toList());
-		recordsLinkedWithDoc.stream().forEach(recordList -> GrantedRecords.addAll(recordList));
+
+		recordsLinkedWithDoc.stream()
+				.forEach(recordList ->
+						recordList.stream()
+								.forEach(healthRecord ->
+										healthRecord.setEhrId("#" + healthRecord.getHospitalName().split(" ")[0] + "-" + healthRecord.getEhrId())));
+
+//		System.out.println("Printing own records hereeee");
+//		recordsLinkedWithDoc.stream().forEach(recordList -> recordList.forEach(record -> System.out.println(record)));
+
+		recordsLinkedWithDoc.stream().forEach(recordList -> recordList.forEach(record -> GrantedRecords.add((HealthRecord)record)));
+
 	}
 	
 	public Doctor getProfile(String metaId) {
