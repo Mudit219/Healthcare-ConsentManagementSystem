@@ -128,6 +128,7 @@ public class AdminService {
                         forEach(record -> {
                             Doctor doc =  this.DoctorHandler.findByNameAndDoctorLicense(record.getDoctorName(),record.getDoctorLicense());
                             availableDoctors.add(new AvailableDoctors(record.getHospitalName(),record.getDoctorName(), doc.getMetaId()));
+                            System.out.println(doc.getName());
                         }
                 ));
 

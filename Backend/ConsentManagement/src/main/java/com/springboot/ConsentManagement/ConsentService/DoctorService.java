@@ -58,7 +58,16 @@ public class DoctorService {
 				for (int j = 0; j < RecordIds.get(i).getRecordIds().size(); j++) {
 					String recordId = RecordIds.get(i).getRecordIds().get(j);
 					String hospName = recordId.split("-")[0].replace("#","");
-					this.GrantedRecords.add(hospitalFactory.getHospital(hospName).findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(), RecordIds.get(i).getRecordIds().get(j)));
+					String hospRecId = recordId.split("-")[1];
+
+					System.out.println("-x-x--x-x-x-x-x-x--x-x-x-x--x-x--x");
+					System.out.println("Hospital Name is here" + hospName);
+					System.out.println("-x-x--x-x-x-x-x-x--x-x-x-x--x-x--x");
+
+					HealthRecord ConsentedRecord = hospitalFactory.getHospital(hospName).findByPatientNameAndAbhaIdAndEhrId(pat.getName(), pat.getAbhaId(),hospRecId);
+					ConsentedRecord.setEhrId("#" + hospName + "-" + hospRecId);
+					this.GrantedRecords.add(ConsentedRecord);
+
 				}
 			}
 		}
