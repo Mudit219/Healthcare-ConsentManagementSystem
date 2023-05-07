@@ -28,17 +28,17 @@ VALUES (75,"70424638979356",'Fortis Hospital','Saksham','Sanjay','Nexium','Ulcer
 
 use kavery_hospital_db;
 INSERT INTO `ehealth_records` (ehr_id,abha_id,hospital_name,patient_name,doctor_name,prescription,diagnosis,patient_phone,doctor_license,date)
-VALUES (41,"70424638979356",'Kavery Hospital','Mudit','Rahul','Crestor','Cholestrol','9545323431','#DC6521','2022-11-02');
+VALUES (41,"95692828872540",'Kavery Hospital','Mudit','Rahul','Crestor','Cholestrol','8574932920','#DC6521','2022-11-02');
 
 use kavery_hospital_db;
 INSERT INTO `ehealth_records` (ehr_id,abha_id,hospital_name,patient_name,doctor_name,prescription,diagnosis,patient_phone,doctor_license,date)
-VALUES (57,"70424638979356",'Kavery Hospital','Mudit','Rahul','Nexium','Stomach Pain','9545323431','#DC6521','2023-03-17');
+VALUES (57,"95692828872540",'Kavery Hospital','Mudit','Rahul','Nexium','Stomach Pain','8574932920','#DC6521','2023-03-17');
 
 use fortis_hospital_db;
 INSERT INTO `ehealth_records` (ehr_id,abha_id,hospital_name,patient_name,doctor_name,prescription,diagnosis,patient_phone,doctor_license,date)
-VALUES (39,"70424638979356",'Fortis Hospital','Mudit','Sanjay','Nexium','Ulcer','9545323431','#DC2122','2022-07-16');
+VALUES (39,"95692828872540",'Fortis Hospital','Mudit','Sanjay','Nexium','Ulcer','8574932920','#DC2122','2022-07-16');
 
 use kavery_hospital_db;
 INSERT INTO `ehealth_records` (ehr_id,abha_id,hospital_name,patient_name,doctor_name,prescription,diagnosis,patient_phone,doctor_license,date)
-VALUES (91,"70424638979356",'Kavery Hospital','Mudit','Renjith','Dolo','Fever','9545323431','#DC7865','2022-11-21');
+VALUES (91,"95692828872540",'Kavery Hospital','Mudit','Renjith','Dolo','Fever','8574932920','#DC7865','2022-11-21');
 
